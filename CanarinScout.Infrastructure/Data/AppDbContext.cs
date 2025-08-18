@@ -27,7 +27,7 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.Desarmes).HasColumnName("tkl");          
                 entity.Property(e => e.DesarmesConcluidos).HasColumnName("tklw");         
                 entity.Property(e => e.DriblesDesarmados).HasColumnName("tkl_1");
-                entuty.Property(e => e.).HasColumnName("tkl+1");
+                //entity.Property(e => e.).HasColumnName("tkl+1");
                 entity.Property(e => e.Desarmes3rdDefensivos).HasColumnName("def_3rd");     
                 entity.Property(e => e.Desarmes3rdAtaque).HasColumnName("att_3rd");
                 entity.Property(e => e.DesarmesMidDefensivo).HasColumnName("min_3rd");
