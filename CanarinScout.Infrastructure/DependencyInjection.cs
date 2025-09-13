@@ -9,7 +9,8 @@ namespace CanarinScout.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
-            var connectionString = configuration.GetConnectionString("Postgres");
+            var connectionString = configuration.GetConnectionString("Postgres")
+                                   ?? Environment.GetEnvironmentVariable("Postgres");
 
             var herokuDatabaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
 
