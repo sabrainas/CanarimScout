@@ -1,0 +1,31 @@
+﻿using CanarinScout.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+
+namespace CanarinScout.Infrastructure
+{
+    public static class DependencyInjection
+    {
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            var connectionString = configuration.GetConnectionString("Postgres");
+
+            var herokuDatabaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
+
+            if (!string.IsNullOrEmpty(herokuDatabaseUrl))
+            {
+                var databaseUri = new Uri(herokuDatabaseUrl);
+                var userInfo = databaseUri.UserInfo.Split(':');
+
+                connectionString =
+                    $"Host={databaseUri.Host};Port={databaseUri.Port};Database={databaseUri.LocalPath.Substring(1)};" +
+                    $"Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+            }
+
+            services.AddDbContext<AppDbContext>(options =>
+                options.UseNpgsql(connectionString));
+            return services;
+        }
+    }
+}
