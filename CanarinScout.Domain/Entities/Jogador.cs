@@ -1,25 +1,23 @@
-﻿using CanarinScout.Domain.Enums;
-
-namespace CanarinScout.Domain.Entities
+﻿namespace CanarinScout.Domain.Entities
 {
     public class Jogador
     {
         public int Id { get; set; }
         public string Nome { get; set; }
-        public DateTime DtNascimento { get; set; }
-        public float ValorMercado { get; set; }
-        public float Altura {  get; set; }
-        public float Peso { get; set; }
-        public PeDominante PeDominante { get; set; }
+        public string DtNascimento { get; set; }
+        public string ValorMercado { get; set; }
+        public string Altura {  get; set; }
+        public string Peso { get; set; }
+        public string PeDominante { get; set; }
         public string Titulos { get; set; }
         public string CompDisputadas { get; set; }
         public string Selecao { get; set; }
         public string TimeAtual {  get; set; }
-        public Posicao Posicao { get; set; }
+        public string Posicao { get; set; }
 
         public Jogador() { }
 
-        public Jogador(string nome, DateTime dtNascimento, float valorMercado, float altura, float peso, PeDominante peDominante, string titulos, string compDisputadas, string selecao, string timeAtual, Posicao posicao)
+        public Jogador(string nome, string dtNascimento, string valorMercado, string altura, string peso, string peDominante, string titulos, string compDisputadas, string selecao, string timeAtual, string posicao)
         {
             Nome = nome;
             DtNascimento = dtNascimento;

@@ -1,54 +1,63 @@
-﻿namespace CanarinScout.Domain.Entities
+﻿namespace CanarinScout.WebApi
 {
     public class Passes
     {
         public int Id { get; private set; }
-        public int PassesConcluidos { get; private set; }
-        public int TentativasPasses { get; private set; }
-        public float PerPassesConcluidos { get; private set; }
-        public int DistanciaTotal { get; private set; }
-        public int DistPassesProgressivo { get; private set; }
-        public int QtdPassesProgressivos { get; private set; }
-        public int PassesCurtosTentados { get; private set; }
-        public int PassesCurtosConcluidos { get; private set; }
-        public float PerPassesCurtosConcluidos { get; private set; }
-        public int PassesMediosConcluidos { get; private set; }
-        public int PassesMediosTentados { get; private set; }
-        public float PerPassesMediosTentados { get; private set; }
-        public int PassesLongosConcluidos { get; private set; }
-        public int PassesLongosTentados { get; private set; }
-        public float PerPassesLongosTentados { get; private set; }
-        public float XAG { get; private set; }
-        public float XA { get; private set; }
-        public int PassesImportantes { get; private set; }
-        public int PassesAreaAdv { get; private set; }
-        public int PassesPeqAreaAdv { get; private set; }
-        public int CruzamentoPeqArea { get; private set; }
-        public int PassesEmJogo { get; private set; }
-        public int PassesBolasParadas { get; private set; }
-        public int PassesAPartirDeFaltas { get; private set; }
-        public int PassesEntreLinhaDefesa { get; private set; }
-        public int PassesDeReversao { get; private set; }
-        public int Cruzamentos { get; private set; }
-        public int LancamentosLaterais { get; private set; }
-        public int EscanteiosDentroArea { get; private set; }
-        public int EscanteioForaArea { get; private set; }
-        public int EscanteioReto { get; private set; }
-        public int PassesImpedidos { get; private set; }
-        public int PassesBloqueados { get; private set; }
+         
+        // Passes gerais
+        public string? PassesConcluidos { get; set; }   // cmp
+        public string? TentativasPasses { get; set; }   // att
+        public string? PerPassesConcluidos { get; set; } // comp %
 
-        private Passes() { }
+        // Passes curtos
+        public string? PassesCurtosConcluidos { get; set; } // cmp_
+        public string? PassesCurtosTentados { get; set; }   // att_1
+        public string? PerPassesCurtosConcluidos { get; set; } // cmp_1 %
 
-        public Passes(int passesConcluidos, int tentativasPasses, float perPassesConcluidos, int distanciaTotal, int distPassesProgressivo, int qtdPassesProgressivos, int passesCurtosTentados, int passesCurtosConcluidos, float perPassesCurtosConcluidos, int passesMediosConcluidos, int passesMediosTentados, float perPassesMediosTentados, int passesLongosConcluidos, int passesLongosTentados, float perPassesLongosTentados, float xAG, float xA, int passesImportantes, int passesAreaAdv, int passesPeqAreaAdv, int cruzamentoPeqArea, int passesEmJogo, int passesBolasParadas, int passesAPartirDeFaltas, int passesEntreLinhaDefesa, int passesDeReversao, int cruzamentos, int lancamentosLaterais, int escanteiosDentroArea, int escanteioForaArea, int escanteioReto, int passesImpedidos, int passesBloqueados)
+        // Passes médios
+        public string? PassesMediosConcluidos { get; set; } // cmp__1
+        public string? PassesMediosTentados { get; set; }   // att_2
+        public string? PerPassesMediosTentados { get; set; } // cmp_2 %
+
+        // Passes longos
+        public string? PassesLongosConcluidos { get; set; } // cmp__2
+        public string? PassesLongosTentados { get; set; }   // att_3
+        public string? PerPassesLongosTentados { get; set; } // cmp_3 %
+
+        // Distâncias e métricas de passe
+        public string? DistanciaTotal { get; set; }       // totdist
+        public string? DistPassesProgressivo { get; set; } // prgdist
+        public string? QtdPassesProgressivos { get; set; } // prgp
+
+        // Métricas avançadas
+        public string? XAG { get; set; }  // xag
+        public string? XA { get; set; }   // xa
+        public string? PassesImportantes { get; set; } // kp
+        public string? PassesAreaAdv { get; set; }     // ppa
+        public string? PassesPeqAreaAdv { get; set; }  // 1_3
+        public string? CruzamentoPeqArea { get; set; } // crspa
+        public string? Assistencia { get; set; }
+        public string? PassesBloqueados { get; set; }
+        public string? LancamentoEscanteio { get; set; }
+        public string? PassesBolasParadas { get; set; }
+        public string? PassesAPartirDeFaltas { get; set; }
+        public string? EscanteiosDentroArea { get; set; }
+        public string? PassesEmjogo { get; set; }
+        public string? PassesImpedidos { get; set; }
+        public string? EscanteioReto { get; set; }
+        public string? PassesDeReversao { get; set; }
+        public string? PassesEntreLinhaDefesa { get; set; }
+        public string? LancamentoLateral { get; set; }
+        public string? Cruzamentos { get; set; }
+        public string? PassesEmJogo { get; set; }
+        public string? EscanteioForaArea { get; set; }
+        public Passes(string? passesConcluidos, string? tentativasPasses, string? perPassesConcluidos, string? passesCurtosConcluidos, string? passesCurtosTentados, string? perPassesCurtosConcluidos, string? passesMediosConcluidos, string? passesMediosTentados, string? perPassesMediosTentados, string? passesLongosConcluidos, string? passesLongosTentados, string? perPassesLongosTentados, string? distanciaTotal, string? distPassesProgressivo, string? qtdPassesProgressivos, string? xAG, string? xA, string? passesImportantes, string? passesAreaAdv, string? passesPeqAreaAdv, string? cruzamentoPeqArea, string? assistencia, string? passesBloqueados, string? lancamentoEscanteio, string? passesBolasParadas, string? passesAPartirDeFaltas, string? escanteiosDentroArea, string? passesEmjogo, string? passesImpedidos, string? escanteioReto, string? passesDeReversao, string? passesEntreLinhaDefesa, string? lancamentoLateral, string? cruzamentos, string? passesEmJogo, string? escanteioForaArea)
         {
             PassesConcluidos = passesConcluidos;
             TentativasPasses = tentativasPasses;
             PerPassesConcluidos = perPassesConcluidos;
-            DistanciaTotal = distanciaTotal;
-            DistPassesProgressivo = distPassesProgressivo;
-            QtdPassesProgressivos = qtdPassesProgressivos;
-            PassesCurtosTentados = passesCurtosTentados;
             PassesCurtosConcluidos = passesCurtosConcluidos;
+            PassesCurtosTentados = passesCurtosTentados;
             PerPassesCurtosConcluidos = perPassesCurtosConcluidos;
             PassesMediosConcluidos = passesMediosConcluidos;
             PassesMediosTentados = passesMediosTentados;
@@ -56,24 +65,30 @@
             PassesLongosConcluidos = passesLongosConcluidos;
             PassesLongosTentados = passesLongosTentados;
             PerPassesLongosTentados = perPassesLongosTentados;
+            DistanciaTotal = distanciaTotal;
+            DistPassesProgressivo = distPassesProgressivo;
+            QtdPassesProgressivos = qtdPassesProgressivos;
             XAG = xAG;
             XA = xA;
             PassesImportantes = passesImportantes;
             PassesAreaAdv = passesAreaAdv;
             PassesPeqAreaAdv = passesPeqAreaAdv;
             CruzamentoPeqArea = cruzamentoPeqArea;
-            PassesEmJogo = passesEmJogo;
+            Assistencia = assistencia;
+            PassesBloqueados = passesBloqueados;
+            LancamentoEscanteio = lancamentoEscanteio;
             PassesBolasParadas = passesBolasParadas;
             PassesAPartirDeFaltas = passesAPartirDeFaltas;
-            PassesEntreLinhaDefesa = passesEntreLinhaDefesa;
-            PassesDeReversao = passesDeReversao;
-            Cruzamentos = cruzamentos;
-            LancamentosLaterais = lancamentosLaterais;
             EscanteiosDentroArea = escanteiosDentroArea;
-            EscanteioForaArea = escanteioForaArea;
-            EscanteioReto = escanteioReto;
+            PassesEmjogo = passesEmjogo;
             PassesImpedidos = passesImpedidos;
-            PassesBloqueados = passesBloqueados;
+            EscanteioReto = escanteioReto;
+            PassesDeReversao = passesDeReversao;
+            PassesEntreLinhaDefesa = passesEntreLinhaDefesa;
+            LancamentoLateral = lancamentoLateral;
+            Cruzamentos = cruzamentos;
+            PassesEmJogo = passesEmJogo;
+            EscanteioForaArea = escanteioForaArea;
         }
     }
 }
