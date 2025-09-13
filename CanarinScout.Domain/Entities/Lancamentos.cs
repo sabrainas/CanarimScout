@@ -3,12 +3,12 @@
     public class Lancamentos
     {
         public int Id { get; private set; }
-        public int LancamentosCompletos { get; private set; }
-        public int TentativasLancamentos { get; private set; }
-        public float PerLancamentosCompletos { get; private set; }
+        public string? LancamentosCompletos { get; private set; }
+        public string? TentativasLancamentos { get; private set; }
+        public string? PerLancamentosCompletos { get; private set; }
 
         public Lancamentos() { }
-        public Lancamentos(int lancamentosCompletos, int tentativasLancamentos, float perLancamentosCompletos)
+        public Lancamentos(string lancamentosCompletos, string tentativasLancamentos, string perLancamentosCompletos)
         {
             LancamentosCompletos = lancamentosCompletos;
             TentativasLancamentos = tentativasLancamentos;

@@ -3,13 +3,13 @@
     public class Cruzamento
     {
         public int Id { get; private set; }
-        public int CruzamentosEnfrentados { get; private set; }
-        public int CruzamentoBloqueado { get; private set; }
-        public float PerCruzamentoBloqueado { get; private set; }
+        public string? CruzamentosEnfrentados { get; private set; }
+        public string? CruzamentoBloqueado { get; private set; }
+        public string? PerCruzamentoBloqueado { get; private set; }
 
         public Cruzamento() { }
 
-        public Cruzamento(int cruzamentosEnfrentados, int cruzamentoBloqueado, float perCruzamentoBloqueado)
+        public Cruzamento(string cruzamentosEnfrentados, string cruzamentoBloqueado, string perCruzamentoBloqueado)
         {
             CruzamentosEnfrentados = cruzamentosEnfrentados;
             CruzamentoBloqueado = cruzamentoBloqueado;

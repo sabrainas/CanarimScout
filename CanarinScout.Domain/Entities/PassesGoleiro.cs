@@ -3,13 +3,13 @@
     public class PassesGoleiro
     {
         public int Id { get; private set; }
-        public int Passes { get; private set; }
-        public int TentativasPasses { get; private set; }
-        public int DistanciaMedia { get; private set; }
+        public string? Passes { get; private set; }
+        public string? TentativasPasses { get; private set; }
+        public string? DistanciaMedia { get; private set; }
 
         public PassesGoleiro() { }
 
-        public PassesGoleiro(int passes, int tentativasPasses, int distanciaMedia)
+        public PassesGoleiro(string passes, string tentativasPasses, string distanciaMedia)
         {
             Passes = passes;
             TentativasPasses = tentativasPasses;

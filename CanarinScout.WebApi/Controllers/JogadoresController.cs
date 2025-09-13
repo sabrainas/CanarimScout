@@ -21,33 +21,36 @@ namespace CanarinScout.WebApi.Controllers
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<JogadorDto>), 200)]
+        [ProducesResponseType(typeof(List<DefensivasDto>), 200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<List<JogadorDto>>> ListarJogadores(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<DefensivasDto>>> ListarJogadores(CancellationToken cancellationToken)
         {
-            var lista = await _context.Jogadores
+            var lista = await _context.Defensivas
                 .AsNoTracking()
-                .ProjectTo<JogadorDto>(_mapper.ConfigurationProvider)
+                .OrderByDescending(d => d.Interceptacoes)
+                .ProjectTo<DefensivasDto>(_mapper.ConfigurationProvider)
+                .Take(10)
                 .ToListAsync(cancellationToken);
 
             if (lista.Count == 0) return NoContent();
             return Ok(lista);
         }
 
-        [HttpGet("defensivas")]
-        [ProducesResponseType(typeof(List<DefensivasDto>), 200)]
-        [ProducesResponseType(204)]
-        public async Task<ActionResult<List<DefensivasDto>>> GetDefensivas(CancellationToken cancellationToken)
-        {
-            var lista = await _context.Defensivas
-                .AsNoTracking()
-                .ProjectTo<DefensivasDto>(_mapper.ConfigurationProvider)
-                .ToListAsync(cancellationToken);
 
-            if (lista.Count == 0)
-                return NoContent();
+        //[HttpGet("defensivas")]
+        //[ProducesResponseType(typeof(List<DefensivasDto>), 200)]
+        //[ProducesResponseType(204)]
+        //public async Task<ActionResult<List<DefensivasDto>>> GetDefensivas(CancellationToken cancellationToken)
+        //{
+        //    var lista = await _context.Defensivas
+        //        .AsNoTracking()
+        //        .ProjectTo<DefensivasDto>(_mapper.ConfigurationProvider)
+        //        .ToListAsync(cancellationToken);
 
-            return Ok(lista);
-        }
+        //    if (lista.Count == 0)
+        //        return NoContent();
+
+        //    return Ok(lista);
+        //}
     }
 }

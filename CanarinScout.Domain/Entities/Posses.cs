@@ -2,37 +2,33 @@
 {
     public class Posses
     {
-        public int Id { get; private set; }
-        public int Contatos { get; private set; }
-        public int ContatosDefensivosPen { get; private set; }
-        public int ContatosTercoDef { get; private set; }
-        public int ContatosTercoCentral { get; private set; }
-        public int ContatosTercoAtaque { get; private set; }
-        public int ContatosAtaquePen { get; private set; }
-        public int ContatoBolaParada { get; private set; }
-        public int ContatoBolaJogo { get; private set; }
-        public int TentativasDribles { get; private set; }
-        public int DriblesCompletos { get; private set; }
-        public float PerDriblesCompletos { get; private set; }
-        public int DriblesInterrompidos { get; private set; }
-        public float PerDriblesInterrompidos { get; private set; }
-        public int Conducoes { get; private set; }
-        public int DistTotal { get; private set; }
-        public int DistProgressivas { get; private set; }
-        public int CarregadaProgressiva { get; private set; }
-        public int CarregadaTercoFinal { get; private set; }
-        public int CarregadaAreaPenalti { get; private set; }
-        public int PerdaDominio { get; private set; }
-        public int Desarmado { get; private set; }
-        public int PassesRecebidos { get; private set; }
-        public int PassesProgressivosRecebidos { get; private set; }
-        public int DispAereasGanhas { get; private set; }
-        public int DispAereasPerdidas { get; private set; }
-        public int PerDispAereasGanhas { get; private set; }
+        public int Id { get; set; }
+        public string? Contatos { get; set; }               // touches
+        public string? ContatosDefensivosPen { get; set; }  // def_pen
+        public string? ContatosTercoDef { get; set; }       // def_3rd
+        public string? ContatosTercoCentral { get; set; }   // mid_3rd
+        public string? ContatosTercoAtaque { get; set; }    // att_3rd
+        public string? ContatosAtaquePen { get; set; }      // att_pen
+        public string? ContatoBolaJogo { get; set; }        // live
+        public string? TentativasDribles { get; set; }      // att
+        public string? DriblesCompletos { get; set; }       // succ
+        public string? PerDriblesCompletos { get; set; }  // succ %
+        public string? DriblesInterrompidos { get; set; }   // tkld
+        public string? PerDriblesInterrompidos { get; set; } // tkld %
+        public string? Conducoes { get; set; }              // carries
+        public string? DistTotal { get; set; }              // totdist
+        public string? DistProgressivas { get; set; }       // prgdist
+        public string? CarregadaProgressiva { get; set; }   // prgc
+        public string? CarregadaTercoFinal { get; set; }    // prgr
+        public string? CarregadaAreaPenalti { get; set; }   // cpa
+        public string? PerdaDominio { get; set; }           // mis
+        public string? Desarmado { get; set; }              // tkld1
+        public string? PassesRecebidos { get; set; }        // rec
+        public string? PassesProgressivosRecebidos { get; set; } // prgp?
 
         private Posses() { }
 
-        public Posses(int contatos, int contatosDefensivosPen, int contatosTercoDef, int contatosTercoCentral, int contatosTercoAtaque, int contatosAtaquePen, int contatoBolaParada, int contatoBolaJogo, int tentativasDribles, int driblesCompletos, float perDriblesCompletos, int driblesInterrompidos, float perDriblesInterrompidos, int conducoes, int distTotal, int distProgressivas, int carregadaProgressiva, int carregadaTercoFinal, int carregadaAreaPenalti, int perdaDominio, int desarmado, int passesRecebidos, int passesProgressivosRecebidos, int dispAereasGanhas, int dispAereasPerdidas, int perDispAereasGanhas)
+        public Posses(string? contatos, string? contatosDefensivosPen, string? contatosTercoDef, string? contatosTercoCentral, string? contatosTercoAtaque, string? contatosAtaquePen, string? contatoBolaJogo, string? tentativasDribles, string? driblesCompletos, string? perDriblesCompletos, string? driblesInterrompidos, string? perDriblesInterrompidos, string? conducoes, string? distTotal, string? distProgressivas, string? carregadaProgressiva, string? carregadaTercoFinal, string? carregadaAreaPenalti, string? perdaDominio, string? desarmado, string? passesRecebidos, string? passesProgressivosRecebidos)
         {
             Contatos = contatos;
             ContatosDefensivosPen = contatosDefensivosPen;
@@ -40,7 +36,6 @@
             ContatosTercoCentral = contatosTercoCentral;
             ContatosTercoAtaque = contatosTercoAtaque;
             ContatosAtaquePen = contatosAtaquePen;
-            ContatoBolaParada = contatoBolaParada;
             ContatoBolaJogo = contatoBolaJogo;
             TentativasDribles = tentativasDribles;
             DriblesCompletos = driblesCompletos;
@@ -57,9 +52,6 @@
             Desarmado = desarmado;
             PassesRecebidos = passesRecebidos;
             PassesProgressivosRecebidos = passesProgressivosRecebidos;
-            DispAereasGanhas = dispAereasGanhas;
-            DispAereasPerdidas = dispAereasPerdidas;
-            PerDispAereasGanhas = perDispAereasGanhas;
         }
     }
 }
