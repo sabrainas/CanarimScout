@@ -1,8 +1,12 @@
-﻿namespace CanarinScout.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace CanarinScout.Domain.Enums
 {
     public enum PeDominante
     {
-        Direito,
-        Esquerdo
+        [Description("Direito")]
+        R,
+        [Description("Esquerdo")]
+        L
     }
 }

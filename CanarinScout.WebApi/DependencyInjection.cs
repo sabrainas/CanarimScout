@@ -1,7 +1,8 @@
-﻿using CanarinScout.Infrastructure.Data;
+﻿using CanarinScout.Application.Interfaces;
+using CanarinScout.Application.Services;
+using CanarinScout.Infrastructure.Interface;
+using CanarinScout.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace CanarinScout.Infrastructure
 {
@@ -26,6 +27,18 @@ namespace CanarinScout.Infrastructure
 
             services.AddDbContext<AppDbContext>(options =>
                 options.UseNpgsql(connectionString));
+            return services;
+        }
+
+        public static IServiceCollection AddService(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IPlayerService, PlayerService>();
+            return services;
+        }
+
+        public static IServiceCollection AddRepository(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
             return services;
         }
     }

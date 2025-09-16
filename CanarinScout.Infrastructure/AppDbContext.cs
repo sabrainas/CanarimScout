@@ -2,7 +2,7 @@
 using CanarinScout.WebApi;
 using Microsoft.EntityFrameworkCore;
 
-namespace CanarinScout.Infrastructure.Data
+namespace CanarinScout.Infrastructure
 {
     public partial class AppDbContext : DbContext
     {
@@ -18,14 +18,34 @@ namespace CanarinScout.Infrastructure.Data
 
         //public virtual DbSet<Misc> Miscs { get; set; }
 
-        public virtual DbSet<Passes> PlayerPassings { get; set; }
-
-        //public virtual DbSet<TipoPasseJogador> PlayerPassingTypes { get; set; }
+        public virtual DbSet<Passes> Passes { get; set; }
+        public virtual DbSet<TipoPasses> TipoPasses { get; set; }
 
         public virtual DbSet<Posses> Posses { get; set; }
 
+        public virtual DbSet<Estatisticas> Estatisticas { get; set; }
+
+        public virtual DbSet<Jogador> Jogador { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Jogador>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("player_pkey");
+                entity.ToTable("player");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.Nome).HasColumnName("full_name");
+                entity.Property(e => e.Posicao).HasColumnName("position");
+                entity.Property(e => e.PeDominante).HasColumnName("footed");
+                entity.Property(e => e.Altura).HasColumnName("height_cm"); 
+                entity.Property(e => e.Peso).HasColumnName("weight_kg");
+                entity.Property(e => e.DtNascimento).HasColumnName("birth_date");
+                entity.Property(e => e.Selecao).HasColumnName("national_team");
+                entity.Property(e => e.TimeAtual).HasColumnName("club");
+                entity.Property(e => e.Foto).HasColumnName("photo_url");
+
+            });
             modelBuilder.Entity<Defensivas>(entity =>
             {
                 entity.ToTable("defense");
@@ -87,8 +107,8 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.DistPassesProgressivo).HasColumnName("prgdist");
                 entity.Property(e => e.QtdPassesProgressivos).HasColumnName("prgp");
 
-                entity.Property(e => e.PerPassesConcluidos).HasColumnName("cmp_");
                 entity.Property(e => e.PassesCurtosTentados).HasColumnName("att_1");
+                entity.Property(e => e.PerPassesConcluidos).HasColumnName("cmp_");
                 entity.Property(e => e.PassesCurtosConcluidos).HasColumnName("cmp_1");
                 entity.Property(e => e.PerPassesCurtosConcluidos).HasColumnName("cmp__1");
                 entity.Property(e => e.PassesMediosTentados).HasColumnName("att_2");
@@ -97,6 +117,7 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.PassesLongosTentados).HasColumnName("att_3");
                 entity.Property(e => e.PassesLongosConcluidos).HasColumnName("cmp_3");
                 entity.Property(e => e.PerPassesLongosTentados).HasColumnName("cmp__3");
+
                 entity.Property(e => e.Assistencia).HasColumnName("ast");
                 entity.Property(e => e.XAG).HasColumnName("xag");
                 entity.Property(e => e.XA).HasColumnName("xa");
@@ -105,17 +126,22 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.PassesPeqAreaAdv).HasColumnName("ppa");
                 entity.Property(e => e.PassesAreaAdv).HasColumnName("1_3");
                 entity.Property(e => e.CruzamentoPeqArea).HasColumnName("crspa");
+
+                entity.HasOne(p => p.Tipo)
+                      .WithOne(tp => tp.Passes)
+                      .HasForeignKey<TipoPasses>(tp => tp.PassesId);
             });
 
-            modelBuilder.Entity<Passes>(entity =>
+            modelBuilder.Entity<TipoPasses>(entity =>
             {
-                entity.HasKey(e => e.Id).HasName("player_passing_pkey");
+                entity.HasKey(e => e.Id).HasName("player_passing_types_pkey");
 
                 entity.ToTable("player_passing_types");
 
                 entity.Property(e => e.Id)
-                    .HasDefaultValueSql("nextval('player_passing_id_seq'::regclass)")
+                    .HasDefaultValueSql("nextval('player_passing_types_id_seq'::regclass)")
                     .HasColumnName("id");
+
                 entity.Property(e => e.PassesBloqueados).HasColumnName("blocks");
                 entity.Property(e => e.LancamentoEscanteio).HasColumnName("ck");
                 entity.Property(e => e.Cruzamentos).HasColumnName("crs");
@@ -129,6 +155,9 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.PassesDeReversao).HasColumnName("sw");
                 entity.Property(e => e.PassesEntreLinhaDefesa).HasColumnName("tb");
                 entity.Property(e => e.LancamentoLateral).HasColumnName("ti");
+
+                // FK pra relação
+                entity.Property(e => e.PassesId).HasColumnName("player_id");
             });
 
             modelBuilder.Entity<Posses>(entity =>
@@ -160,6 +189,35 @@ namespace CanarinScout.Infrastructure.Data
                 entity.Property(e => e.DistTotal).HasColumnName("totdist");
                 entity.Property(e => e.Contatos).HasColumnName("touches");
                 entity.Property(e => e.CarregadaTercoFinal).HasColumnName("1_3");
+            });
+
+            modelBuilder.Entity<Estatisticas>(entity =>
+            {
+                entity.HasKey(e => e.Id).HasName("summary_pkey");
+                entity.ToTable("summary");
+                
+                entity.HasOne(e => e.Ofensivas)
+                      .WithOne()
+                      .HasForeignKey<Estatisticas>(e => e.OfensivasId);
+
+                entity.HasOne(e => e.Passes)
+                      .WithOne()
+                      .HasForeignKey<Estatisticas>(e => e.PassesId);
+
+                entity.HasOne(e => e.Posses)
+                      .WithOne()
+                      .HasForeignKey<Estatisticas>(e => e.PossesId);
+
+                entity.HasOne(e => e.Defensivas)
+                      .WithOne()
+                      .HasForeignKey<Estatisticas>(e => e.DefensivasId);
+
+                entity.Property(e => e.Id).HasColumnName("id");
+                entity.Property(e => e.MinutosJogados).HasColumnName("min");
+                entity.Property(e => e.Gols).HasColumnName("gls");
+                entity.Property(e => e.Assistencias).HasColumnName("ast");
+                entity.Property(e => e.CartaoAmarelo).HasColumnName("crdy");
+                entity.Property(e => e.CartaoVermelho).HasColumnName("crdr");
             });
 
             //modelBuilder.Entity<Misc>(entity =>

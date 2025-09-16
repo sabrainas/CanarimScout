@@ -1,13 +1,12 @@
-﻿using CanarinScout.Domain.Enums;
-
-namespace CanarinScout.Application.DTO
+﻿namespace CanarinScout.Application.DTO
 {
     public class JogadorDto
     {
-        public Guid Id { get; set; }
-        public string Nome { get; set; }
-        public Posicao Posicao { get; set; }
+        public int Id { get; set; }
+        public string? Nome { get; set; }
+        public string? Posicao { get; set; }
         public string? TimeAtual {  get; set; }
-        public string? Selecao { get; set; }
+        public int? Idade { get; set; }
+        public string? Foto { get; set; }
     }
 }

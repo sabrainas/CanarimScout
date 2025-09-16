@@ -1,9 +1,7 @@
 ﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using CanarinScout.Application.DTO;
-using CanarinScout.Infrastructure.Data;
+using CanarinScout.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CanarinScout.WebApi.Controllers
 {
@@ -11,46 +9,35 @@ namespace CanarinScout.WebApi.Controllers
     [Route("api/jogadores")]
     public class JogadoresController : ControllerBase
     {
-        private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private readonly IPlayerService _playerService;
 
-        public JogadoresController(AppDbContext context, IMapper mapper)
+        public JogadoresController(IMapper mapper, IPlayerService playerService)
         {
-            _context = context;
             _mapper = mapper;
+            _playerService = playerService;
         }
 
         [HttpGet]
-        [ProducesResponseType(typeof(List<DefensivasDto>), 200)]
+        [ProducesResponseType(typeof(List<JogadorDto>), 200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<List<DefensivasDto>>> ListarJogadores(CancellationToken cancellationToken)
+        public async Task<ActionResult<List<JogadorDto>>> GetPlayers()
         {
-            var lista = await _context.Defensivas
-                .AsNoTracking()
-                .OrderByDescending(d => d.Interceptacoes)
-                .ProjectTo<DefensivasDto>(_mapper.ConfigurationProvider)
-                .Take(10)
-                .ToListAsync(cancellationToken);
+            var list = await _playerService.SearchPlayersAsync();
 
-            if (lista.Count == 0) return NoContent();
-            return Ok(lista);
+            if (list.Count == 0) return NoContent();
+            return Ok(list);
         }
 
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(JogadorDetailDto), 200)]
+        [ProducesResponseType(204)]
+        public async Task<ActionResult<JogadorDetailDto>> GetPlayerById(int id)
+        {
+            var player = await _playerService.GetPlayerByIdAsync(id);
 
-        //[HttpGet("defensivas")]
-        //[ProducesResponseType(typeof(List<DefensivasDto>), 200)]
-        //[ProducesResponseType(204)]
-        //public async Task<ActionResult<List<DefensivasDto>>> GetDefensivas(CancellationToken cancellationToken)
-        //{
-        //    var lista = await _context.Defensivas
-        //        .AsNoTracking()
-        //        .ProjectTo<DefensivasDto>(_mapper.ConfigurationProvider)
-        //        .ToListAsync(cancellationToken);
-
-        //    if (lista.Count == 0)
-        //        return NoContent();
-
-        //    return Ok(lista);
-        //}
+            if (player == null) return NoContent();
+            return Ok(player);
+        }
     }
 }

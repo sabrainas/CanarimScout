@@ -1,12 +1,20 @@
-﻿namespace CanarinScout.Domain.Enums
+﻿using System.ComponentModel;
+
+namespace CanarinScout.Domain.Enums
 {
     public enum Posicao
     {
-        Goleiro,
-        Zagueiro,
-        Lateral,
-        Volante,
-        Meia,
-        Atacante
+        [Description("Goleiro")]
+        GK,
+        [Description("Zagueiro")]
+        DF,
+        [Description("Lateral Esquerdo")]
+        LB,
+        [Description("Lateral Direito")]
+        RB,
+        [Description("Meio-campo")]
+        MF,
+        [Description("Atacante")]
+        FW
     }
 }
