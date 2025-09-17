@@ -4,6 +4,8 @@ namespace CanarinScout.Domain.Enums
 {
     public enum Posicao
     {
+        [Description("Desconhecido")]
+        Desconhecido,
         [Description("Goleiro")]
         GK,
         [Description("Zagueiro")]
@@ -15,6 +17,6 @@ namespace CanarinScout.Domain.Enums
         [Description("Meio-campo")]
         MF,
         [Description("Atacante")]
-        FW
+        FW,
     }
 }

@@ -12,11 +12,13 @@ namespace CanarinScout.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<List<Jogador>> GetAllPlayersAsync()
+        public async Task<List<Jogador>> GetAllPlayersAsync(int skip, int take)
         {
             return await _context.Jogador
                 .AsNoTracking()
                 .OrderBy(d => d.Id)
+                .Skip(skip)
+                .Take(take)
                 .ToListAsync();
         }
 

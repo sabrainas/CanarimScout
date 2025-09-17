@@ -5,8 +5,10 @@ namespace CanarinScout.Domain.Enums
     public enum PeDominante
     {
         [Description("Direito")]
-        R,
+        Left,
         [Description("Esquerdo")]
-        L
+        Right,
+        [Description("Ambidestro")]
+        Both
     }
 }

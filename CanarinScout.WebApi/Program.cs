@@ -3,7 +3,6 @@ using CanarinScout.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do CORS
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowAll", policy =>

@@ -1,6 +1,7 @@
 ﻿using CanarinScout.Application.DTO;
 using CanarinScout.Application.Interfaces;
 using CanarinScout.Domain.Enums;
+using CanarinScout.Domain.Extensions;
 using CanarinScout.Infrastructure.Interface;
 
 namespace CanarinScout.Application.Services
@@ -8,79 +9,59 @@ namespace CanarinScout.Application.Services
     public class PlayerService : IPlayerService
     {
         private readonly IPlayerRepository _playerRepository;
-        public PlayerService(
-            IPlayerRepository playerRepository) 
+
+        public PlayerService(IPlayerRepository playerRepository)
         {
             _playerRepository = playerRepository;
         }
 
-        public async Task<List<JogadorDto>> SearchPlayersAsync()
+        public async Task<List<JogadorDto>> SearchPlayersAsync(int skip, int take)
         {
-            var players = await _playerRepository.GetAllPlayersAsync();
-            var result = players.Select(p =>
-            {
-                var posicao = ParsePosition(p.Posicao);
-                return new JogadorDto
-                {
-                    Id = p.Id,
-                    Nome = p.Nome,
-                    Posicao = posicao != null ? posicao.Value.GetDescription() : "Desconhecido",
-                    TimeAtual = p.TimeAtual,
-                    Foto = p.Foto,
-                    Idade = GetAge(p.DtNascimento)
-                };
-            }).ToList();
+            var players = await _playerRepository.GetAllPlayersAsync(skip, take);
+            if (players == null || !players.Any()) return new List<JogadorDto>();
 
-            return result;
+            return players.Select(p => new JogadorDto
+            {
+                Id = p.Id,
+                Nome = p.Nome,
+                Posicao = PosicaoExtensions.Map(p.Posicao).GetDescription(),
+                TimeAtual = p.TimeAtual,
+                Foto = p.Foto,
+                Idade = GetAge(p.DtNascimento)
+            }).ToList();
         }
 
         public async Task<JogadorDetailDto> GetPlayerByIdAsync(int id)
         {
             var player = await _playerRepository.GetPlayerByIdAsync(id);
+            if (player == null) return null;
 
-            if (player == null)
-                return null;
-
-            var posicao = ParsePosition(player.Posicao);
+            var posicao = PosicaoExtensions.Map(player.Posicao);
             var peDominante = ParseFoot(player.PeDominante);
 
-            var playerDto = new JogadorDetailDto
+            return new JogadorDetailDto
             {
                 Id = player.Id,
                 Nome = player.Nome,
-                Posicao = posicao != null ? posicao.Value.GetDescription() : "Desconhecido",
+                Posicao = posicao.GetDescription(),
                 Idade = GetAge(player.DtNascimento),
-                Peso = player.Peso,
-                Altura = player.Altura,
+                Peso = TryParseInt(player.Peso),
+                Altura = TryParseInt(player.Altura),
                 TimeAtual = player.TimeAtual,
                 Foto = player.Foto,
                 Selecao = player.Selecao,
-                PeDominante = peDominante != null ? peDominante.Value.GetDescription() : "Desconhecido"
+                PeDominante = peDominante?.GetDescription() ?? "Desconhecido"
             };
-
-            return playerDto;
         }
+
+        private static int? TryParseInt(string? value)
+            => int.TryParse(value, out var number) ? number : null;
 
         private static PeDominante? ParseFoot(string? sigla)
-        {
-            if (!string.IsNullOrEmpty(sigla) && Enum.TryParse<PeDominante>(sigla, out var peDominante))
-                return peDominante;
-            return null;
-        }
-
-        private static Posicao? ParsePosition(string? sigla)
-        {
-            if (!string.IsNullOrEmpty(sigla) && Enum.TryParse<Posicao>(sigla, out var posicao))
-                return posicao;
-            return null;
-        }
+            => !string.IsNullOrEmpty(sigla) && Enum.TryParse<PeDominante>(sigla, out var pe) ? pe : null;
 
         private static int? GetAge(string? birthDateString)
-        {
-            if (string.IsNullOrEmpty(birthDateString) || !DateTime.TryParse(birthDateString, out var birthDate))
-                return null;
-            return CalculateAge(birthDate);
-        }
+            => DateTime.TryParse(birthDateString, out var birthDate) ? CalculateAge(birthDate) : null;
 
         private static int CalculateAge(DateTime birthDate)
         {

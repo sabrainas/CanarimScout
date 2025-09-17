@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
 using CanarinScout.Application.DTO;
 using CanarinScout.Application.Interfaces;
+using CanarinScout.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace CanarinScout.WebApi.Controllers
 {
@@ -9,21 +11,21 @@ namespace CanarinScout.WebApi.Controllers
     [Route("api/jogadores")]
     public class JogadoresController : ControllerBase
     {
-        private readonly IMapper _mapper;
         private readonly IPlayerService _playerService;
+        private readonly AppDbContext _context;
 
-        public JogadoresController(IMapper mapper, IPlayerService playerService)
+        public JogadoresController(IPlayerService playerService, AppDbContext context)
         {
-            _mapper = mapper;
             _playerService = playerService;
+            _context = context;
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(List<JogadorDto>), 200)]
         [ProducesResponseType(204)]
-        public async Task<ActionResult<List<JogadorDto>>> GetPlayers()
+        public async Task<ActionResult<List<JogadorDto>>> GetPlayers(int skip = 0, int take = 50)
         {
-            var list = await _playerService.SearchPlayersAsync();
+            var list = await _playerService.SearchPlayersAsync(skip, take);
 
             if (list.Count == 0) return NoContent();
             return Ok(list);
@@ -38,6 +40,13 @@ namespace CanarinScout.WebApi.Controllers
 
             if (player == null) return NoContent();
             return Ok(player);
+        }
+
+        [HttpGet("total")]
+        public async Task<ActionResult<int>> GetTotalPlayers()
+        {
+            var total = await _context.Jogador.CountAsync();
+            return Ok(total);
         }
     }
 }
