@@ -1,4 +1,4 @@
-using CanarinScout.Application.Mapping;
+﻿using CanarinScout.Application.Mapping;
 using CanarinScout.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,19 +24,15 @@ builder.Services.AddAutoMapper(typeof(JogadorProfile));
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
 app.UseCors("AllowAll");
 
 app.MapControllers();
-
-app.MapGet("/", () => "API rodando no Railway!");
+app.MapGet("/", () => "🚀 API rodando no Render com Swagger disponível em /swagger");
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
-app.Urls.Add($"http://*:{port}");
+app.Urls.Add($"http://0.0.0.0:{port}");
 
 app.Run();
