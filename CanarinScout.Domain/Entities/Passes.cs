@@ -5,6 +5,8 @@ namespace CanarinScout.WebApi
     public class Passes
     {
         public int Id { get; set; }
+        public string PlayerId { get; set; }
+        public Jogador Jogador { get; set; }
         public string? PassesConcluidos { get; set; }
         public string? TentativasPasses { get; set; }
         public string? DistanciaTotal { get; set; }

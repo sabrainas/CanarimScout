@@ -5,8 +5,9 @@ namespace CanarinScout.Application.DTO
 {
     public class EstatisticasDto
     {
-        public int Id { get; private set; }
-        //public string? Jogos { get; set; }
+        public int Id { get; set; }
+        public string PlayerId { get; set; }
+        public string? Jogos { get; set; }
         public string? Gols { get; set; }
         public string? Assistencias { get; set; }
         public string? CartaoAmarelo { get; set; }

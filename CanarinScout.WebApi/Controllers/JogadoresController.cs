@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using CanarinScout.Application.DTO;
+﻿using CanarinScout.Application.DTO;
 using CanarinScout.Application.Interfaces;
 using CanarinScout.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

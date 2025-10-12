@@ -3,6 +3,7 @@
     public class Jogador
     {
         public int Id { get; set; }
+        public string? PlayerId { get; set; }
         public string? Nome { get; set; }
         public string? DtNascimento { get; set; }
         public string? Altura {  get; set; }

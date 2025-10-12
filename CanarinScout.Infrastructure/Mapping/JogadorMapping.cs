@@ -11,6 +11,7 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.HasKey(e => e.Id).HasName("player_pkey");
             entity.ToTable("player");
 
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Nome).HasColumnName("full_name");
             entity.Property(e => e.Posicao).HasColumnName("position");

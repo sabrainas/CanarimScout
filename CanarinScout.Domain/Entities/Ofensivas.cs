@@ -3,6 +3,8 @@
     public class Ofensivas
     {
         public int Id { get; private set; }
+        public string PlayerId { get; set; }
+        public Jogador Jogador { get; set; }
         public string? AcaoCriacaoChute {  get; set; }
         public string? PassesTentChutes { get; set; }
         public string? PassesTentChutesBolaParada { get; set; }

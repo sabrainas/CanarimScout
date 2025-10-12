@@ -33,12 +33,14 @@ namespace CanarinScout.Infrastructure
         public static IServiceCollection AddService(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IStatsService, StatsService>();
             return services;
         }
 
         public static IServiceCollection AddRepository(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IPlayerRepository, PlayerRepository>();
+            services.AddScoped<IStatsRepository, StatsRepository>();
             return services;
         }
     }

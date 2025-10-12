@@ -5,6 +5,8 @@ namespace CanarinScout.Domain.Entities
     public class TipoPasses
     {
         public int Id { get; set; }
+        public string PlayerId { get; set; }
+        public Jogador Jogador { get; set; }
         public string? PassesBloqueados { get; set; }
         public string? LancamentoEscanteio { get; set; }
         public string? Cruzamentos { get; set; }

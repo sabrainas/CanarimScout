@@ -9,8 +9,10 @@ namespace CanarinScout.Infrastructure.Mapping
         public void Configure(EntityTypeBuilder<Defensivas> entity)
         {
             entity.ToTable("defense");
+            entity.HasKey(e => e.Id);
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.TentativaDesarmes).HasColumnName("tkl");
             entity.Property(e => e.Defesas).HasColumnName("clr");
             entity.Property(e => e.Competicao).HasColumnName("comp");
@@ -26,6 +28,10 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.PassesBloqueados).HasColumnName("pass");
             entity.Property(e => e.Erros).HasColumnName("err");
             entity.Property(e => e.PerDesDriblador).HasColumnName("tkl_");
+
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId);
         }
     }
 }
