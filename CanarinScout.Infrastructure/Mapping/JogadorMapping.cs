@@ -13,7 +13,7 @@ namespace CanarinScout.Infrastructure.Mapping
 
             entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Nome).HasColumnName("full_name");
+            entity.Property(e => e.Nome).HasColumnName("player_name");
             entity.Property(e => e.Posicao).HasColumnName("position");
             entity.Property(e => e.PeDominante).HasColumnName("footed");
             entity.Property(e => e.Altura).HasColumnName("height_cm");

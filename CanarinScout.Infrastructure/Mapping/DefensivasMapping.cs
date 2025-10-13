@@ -9,7 +9,7 @@ namespace CanarinScout.Infrastructure.Mapping
         public void Configure(EntityTypeBuilder<Defensivas> entity)
         {
             entity.ToTable("defense");
-            entity.HasKey(e => e.Id);
+            entity.HasKey(e => e.Id).HasName("id");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.PlayerId).HasColumnName("player_id");

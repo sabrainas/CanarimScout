@@ -17,12 +17,6 @@ namespace CanarinScout.Domain.Extensions
             if (valorBanco.Contains("DF"))
                 return Posicao.DF;
 
-            if (valorBanco.Contains("LB"))
-                return Posicao.LB;
-
-            if (valorBanco.Contains("RB"))
-                return Posicao.RB;
-
             if (valorBanco.Contains("MF"))
                 return Posicao.MF;
 
