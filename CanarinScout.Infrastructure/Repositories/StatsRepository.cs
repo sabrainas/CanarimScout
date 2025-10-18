@@ -12,10 +12,30 @@ namespace CanarinScout.Infrastructure.Repositories
             _context = context;
         }
 
-        public async Task<Estatisticas?> GetStatsByPlayerIdAsync(int idJogador)
+        public async Task<Estatisticas?> GetStatsByIdAsync(int id)
         {
             return await _context.Estatisticas
-                .FirstOrDefaultAsync(e => e.Id == idJogador);
+                .AsNoTracking()
+                .Include(e => e.Jogador)
+                .Include(e => e.Ofensivas)
+                .Include(e => e.Passes)
+                .Include(e => e.Passes).ThenInclude(p => p.Tipo)
+                .Include(e => e.Posses)
+                .Include(e => e.Defensivas)
+                .FirstOrDefaultAsync(e => e.Id == id);
+        }
+
+        public async Task<Estatisticas?> GetStatsByPlayerIdAsync(string playerId)
+        {
+            return await _context.Estatisticas
+                .AsNoTracking()
+                .Include(e => e.Jogador)
+                .Include(e => e.Ofensivas)
+                .Include(e => e.Passes)
+                .Include(e => e.Passes).ThenInclude(p => p.Tipo)
+                .Include(e => e.Posses)
+                .Include(e => e.Defensivas)
+                .FirstOrDefaultAsync(e => e.PlayerId == playerId);
         }
     }
 }

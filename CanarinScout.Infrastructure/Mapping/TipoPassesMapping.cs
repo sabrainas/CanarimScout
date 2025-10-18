@@ -16,6 +16,7 @@ namespace CanarinScout.Infrastructure.Mapping
                 .HasDefaultValueSql("nextval('player_passing_types_id_seq'::regclass)")
                 .HasColumnName("id");
 
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.PassesBloqueados).HasColumnName("blocks");
             entity.Property(e => e.LancamentoEscanteio).HasColumnName("ck");
             entity.Property(e => e.Cruzamentos).HasColumnName("crs");
@@ -30,7 +31,10 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.PassesEntreLinhaDefesa).HasColumnName("tb");
             entity.Property(e => e.LancamentoLateral).HasColumnName("ti");
 
-            entity.Property(e => e.PassesId).HasColumnName("player_id");
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
         }
     }
 }

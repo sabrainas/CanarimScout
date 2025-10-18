@@ -1,5 +1,4 @@
 ﻿using CanarinScout.Domain.Entities;
-using CanarinScout.WebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -14,23 +13,28 @@ namespace CanarinScout.Infrastructure.Mapping
 
             entity.HasOne(e => e.Jogador)
                   .WithMany()
-                  .HasForeignKey(e => e.PlayerId);
+                  .HasForeignKey(e => e.PlayerId)
+                  .HasPrincipalKey(j => j.PlayerId);
 
             entity.HasOne(e => e.Defensivas)
                   .WithOne()
-                  .HasForeignKey<Defensivas>(d => d.PlayerId);
+                  .HasForeignKey<Defensivas>(d => d.PlayerId)
+                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
 
             entity.HasOne(e => e.Ofensivas)
                   .WithOne()
-                  .HasForeignKey<Ofensivas>(o => o.PlayerId);
+                  .HasForeignKey<Ofensivas>(o => o.PlayerId)
+                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
 
             entity.HasOne(e => e.Passes)
                   .WithOne()
-                  .HasForeignKey<Passes>(p => p.PlayerId);
+                  .HasForeignKey<Passes>(p => p.PlayerId)
+                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
 
             entity.HasOne(e => e.Posses)
                   .WithOne()
-                  .HasForeignKey<Posses>(p => p.PlayerId);
+                  .HasForeignKey<Posses>(p => p.PlayerId)
+                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.PlayerId).HasColumnName("player_id");

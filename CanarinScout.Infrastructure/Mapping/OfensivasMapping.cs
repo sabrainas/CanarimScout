@@ -27,10 +27,11 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.ChuteGol).HasColumnName("sh_1");
             entity.Property(e => e.DriblesTentChutes).HasColumnName("to");
             entity.Property(e => e.DribleGol).HasColumnName("to_1");
-            
+
             entity.HasOne(e => e.Jogador)
                 .WithMany()
-                .HasForeignKey(e => e.PlayerId);
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
         }
     }
 }

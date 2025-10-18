@@ -8,7 +8,7 @@
         public string? PenaltiMarcado { get; private set; }
         public string? ErroAdversario { get; private set; }
 
-        private Penalti() { }
+        public Penalti() { }
 
         public Penalti(string cobrancaPenalti, string naoDefendido, string penaltiMarcado, string erroAdversario)
         {

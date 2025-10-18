@@ -4,6 +4,8 @@ namespace CanarinScout.Application.Interfaces
 {
     public interface IStatsService
     {
-        Task<EstatisticasDto> GetStatsAsync(int idJogador);
+        Task<EstatisticasDto> GetStatsByIdAsync(int id);
+        Task<EstatisticasDto> GetStatsByPlayerIdAsync(string playerId);
+
     }
 }

@@ -31,7 +31,8 @@ namespace CanarinScout.Infrastructure.Mapping
 
             entity.HasOne(e => e.Jogador)
                 .WithMany()
-                .HasForeignKey(e => e.PlayerId);
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
         }
     }
 }

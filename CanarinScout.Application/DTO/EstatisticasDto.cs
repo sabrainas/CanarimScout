@@ -1,7 +1,4 @@
-﻿using CanarinScout.Domain.Entities;
-using CanarinScout.WebApi;
-
-namespace CanarinScout.Application.DTO
+﻿namespace CanarinScout.Application.DTO
 {
     public class EstatisticasDto
     {
@@ -13,9 +10,9 @@ namespace CanarinScout.Application.DTO
         public string? CartaoAmarelo { get; set; }
         public string? CartaoVermelho { get; set; }
         public string? MinutosJogados { get; set; }
-        public Ofensivas? Ofensivas { get; set; }
-        public Passes? Passes { get; set; }
-        public Posses? Posses { get; set; }
-        public Defensivas? Defensivas { get; set; }
+        public OfensivasDto? Ofensivas { get; set; }
+        public PassesDto? Passes { get; set; }
+        public PossesDto? Posses { get; set; }
+        public DefensivasDto? Defensivas { get; set; }
     }
 }

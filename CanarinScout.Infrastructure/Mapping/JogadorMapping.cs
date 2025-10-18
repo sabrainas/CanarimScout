@@ -22,6 +22,8 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.Selecao).HasColumnName("national_team");
             entity.Property(e => e.TimeAtual).HasColumnName("club");
             entity.Property(e => e.Foto).HasColumnName("photo_url");
+
+            entity.HasIndex(e => e.PlayerId).IsUnique();
         }
     }
 }

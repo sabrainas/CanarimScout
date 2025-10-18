@@ -3,6 +3,7 @@
     public class PossesDto
     {
         public int Id { get; set; }
+        public string PlayerId { get; set; }
         public string? Contatos { get; set; }               // touches
         public string? ContatosDefensivosPen { get; set; }  // def_pen
         public string? ContatosTercoDef { get; set; }       // def_3rd

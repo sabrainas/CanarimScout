@@ -1,38 +1,37 @@
-﻿using CanarinScout.Domain.Entities;
-
-namespace CanarinScout.WebApi
+﻿
+namespace CanarinScout.Domain.Entities
 {
     public class Passes
     {
-        public int Id { get; set; }
-        public string PlayerId { get; set; }
-        public Jogador Jogador { get; set; }
-        public string? PassesConcluidos { get; set; }
-        public string? TentativasPasses { get; set; }
-        public string? DistanciaTotal { get; set; }
-        public string? DistPassesProgressivo { get; set; }
-        public string? QtdPassesProgressivos { get; set; }
+        public int Id { get; private set; }
+        public string PlayerId { get; private set; } = null!;
+        public Jogador Jogador { get; private set; } = null!;
+        public string? PassesConcluidos { get; private set; }
+        public string? TentativasPasses { get; private set; }
+        public string? DistanciaTotal { get; private set; }
+        public string? DistPassesProgressivo { get; private set; }
+        public string? QtdPassesProgressivos { get; private set; }
 
-        public string? PassesCurtosTentados { get; set; }
-        public string? PerPassesConcluidos { get; set; }
-        public string? PassesCurtosConcluidos { get; set; }
-        public string? PerPassesCurtosConcluidos { get; set; }
+        public string? PassesCurtosTentados { get; private set; }
+        public string? PerPassesConcluidos { get; private set; }
+        public string? PassesCurtosConcluidos { get; private set; }
+        public string? PerPassesCurtosConcluidos { get; private set; }
 
-        public string? PassesMediosTentados { get; set; }
-        public string? PassesMediosConcluidos { get; set; }
-        public string? PerPassesMediosTentados { get; set; }
+        public string? PassesMediosTentados { get; private set; }
+        public string? PassesMediosConcluidos { get; private set; }
+        public string? PerPassesMediosTentados { get; private set; }
 
-        public string? PassesLongosTentados { get; set; }
-        public string? PassesLongosConcluidos { get; set; }
-        public string? PerPassesLongosTentados { get; set; }
+        public string? PassesLongosTentados { get; private set; }
+        public string? PassesLongosConcluidos { get; private set; }
+        public string? PerPassesLongosTentados { get; private set; }
 
-        public string? Assistencia { get; set; }
-        public string? XAG { get; set; }
-        public string? XA { get; set; }
-        public string? PassesImportantes { get; set; }
-        public string? PassesPeqAreaAdv { get; set; }
-        public string? PassesAreaAdv { get; set; }
-        public string? CruzamentoPeqArea { get; set; }
+        public string? Assistencia { get; private set; }
+        public string? XAG { get; private set; }
+        public string? XA { get; private set; }
+        public string? PassesImportantes { get; private set; }
+        public string? PassesPeqAreaAdv { get; private set; }
+        public string? PassesAreaAdv { get; private set; }
+        public string? CruzamentoPeqArea { get; private set; }
 
         public TipoPasses Tipo { get; set; } = null!;
 

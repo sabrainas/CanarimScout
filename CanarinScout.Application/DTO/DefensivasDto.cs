@@ -3,6 +3,7 @@
     public class DefensivasDto
     {
         public int Id { get; set; }
+        public string PlayerId { get; set; }
         public string? Competicao { get; set; }        // Comp
         public string? DesarmesConcluidos { get; set; } // Tkl1
         public string? PassesBloqueados { get; set; }  // Blocks
