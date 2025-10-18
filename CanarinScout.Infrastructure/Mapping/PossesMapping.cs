@@ -13,6 +13,7 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.ToTable("possession");
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.TentativasDribles).HasColumnName("att");
             entity.Property(e => e.ContatosTercoAtaque).HasColumnName("att_3rd");
             entity.Property(e => e.ContatosAtaquePen).HasColumnName("att_pen");
@@ -35,6 +36,11 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.DistTotal).HasColumnName("totdist");
             entity.Property(e => e.Contatos).HasColumnName("touches");
             entity.Property(e => e.CarregadaTercoFinal).HasColumnName("1_3");
+
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
         }
     }
 }

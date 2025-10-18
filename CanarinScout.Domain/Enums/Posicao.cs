@@ -8,12 +8,8 @@ namespace CanarinScout.Domain.Enums
         Desconhecido,
         [Description("Goleiro")]
         GK,
-        [Description("Zagueiro")]
+        [Description("Defensor")]
         DF,
-        [Description("Lateral Esquerdo")]
-        LB,
-        [Description("Lateral Direito")]
-        RB,
         [Description("Meio-campo")]
         MF,
         [Description("Atacante")]

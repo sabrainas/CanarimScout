@@ -1,5 +1,4 @@
 ﻿using CanarinScout.Domain.Entities;
-using CanarinScout.WebApi;
 using Microsoft.EntityFrameworkCore;
 
 namespace CanarinScout.Infrastructure

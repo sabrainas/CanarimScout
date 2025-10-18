@@ -11,7 +11,7 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.HasKey(e => e.Id).HasName("gca_pkey");
 
             entity.ToTable("gca");
-
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AcaoDefensivaTentChutes).HasColumnName("def");
             entity.Property(e => e.AcaoDefensivaGol).HasColumnName("def_1");
@@ -27,6 +27,11 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.ChuteGol).HasColumnName("sh_1");
             entity.Property(e => e.DriblesTentChutes).HasColumnName("to");
             entity.Property(e => e.DribleGol).HasColumnName("to_1");
+
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
         }
     }
 }

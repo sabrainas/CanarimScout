@@ -1,5 +1,4 @@
 ﻿using CanarinScout.Domain.Entities;
-using CanarinScout.WebApi;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -43,9 +42,16 @@ namespace CanarinScout.Infrastructure.Mapping
             entity.Property(e => e.PassesAreaAdv).HasColumnName("1_3");
             entity.Property(e => e.CruzamentoPeqArea).HasColumnName("crspa");
 
+            entity.Property(e => e.PlayerId).HasColumnName("player_id");
+
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId);
+
             entity.HasOne(p => p.Tipo)
                   .WithOne(tp => tp.Passes)
-                  .HasForeignKey<TipoPasses>(tp => tp.PassesId);
+                  .HasForeignKey<TipoPasses>(tp => tp.Id);
         }
     }
 }

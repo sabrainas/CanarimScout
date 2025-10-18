@@ -3,6 +3,8 @@
     public class Defensivas
     {
         public int Id { get; set; }
+        public string PlayerId { get; private set; } = null!;
+        public Jogador Jogador { get; private set; } = null!;
         public string? Competicao { get; set; }        // Comp
         public string? DesarmesConcluidos { get; set; } // Tkl1
         public string? PassesBloqueados { get; set; }  // Blocks
@@ -18,11 +20,12 @@
         public string? DesarmesAtaque { get; set; }
         public string? DesarmesCentrais { get; set; }
 
-        private Defensivas() { }
-
-        public Defensivas(int id, string? competicao, string? desarmesConcluidos, string? passesBloqueados, string? interceptacoes, string? tentativaDesarmes, string? desDriblador, string? bloqueios, string? chutesBloqueados, string? defesas, string? erros, string? perDesDriblador, string? desarmesDefensivos, string? desarmesAtaque, string? desarmesCentrais)
+        public Defensivas() { }
+        public Defensivas(int id, Jogador jogador, string playerId, string? competicao, string? desarmesConcluidos, string? passesBloqueados, string? interceptacoes, string? tentativaDesarmes, string? desDriblador, string? bloqueios, string? chutesBloqueados, string? defesas, string? erros, string? perDesDriblador, string? desarmesDefensivos, string? desarmesAtaque, string? desarmesCentrais)
         {
             Id = id;
+            Jogador = jogador;
+            PlayerId = playerId;
             Competicao = competicao;
             DesarmesConcluidos = desarmesConcluidos;
             PassesBloqueados = passesBloqueados;

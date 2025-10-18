@@ -2,8 +2,10 @@
 {
     public class PassesDto
     {
-        public int Id { get; private set; }
-        public string? PassesConcluidos { get; set; }  
+        public int Id { get; set; }
+        public string PlayerId { get; set; }    
+        public string? PassesConcluidos { get; set; }
+        public string? PerPassesConcluidos { get; set; }
         public string? TentativasPasses { get; set; }
         public string? PassesCurtosConcluidos { get; set; } 
         public string? PassesCurtosTentados { get; set; }  
@@ -37,5 +39,6 @@
         public string? LancamentoLateral { get; set; }
         public string? Cruzamentos { get; set; }
         public string? EscanteioForaArea { get; set; }
+        public TipoPassesDto? Tipo { get; set; }
     }
 }

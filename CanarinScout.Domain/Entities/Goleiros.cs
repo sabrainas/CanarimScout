@@ -3,6 +3,8 @@
     public class Goleiros
     {
         public int Id { get; private set; }
+        public int PlayerId { get; set; }
+
         public string? Defesas { get; private set; }
         public string? PartidaSemGol { get; private set; }
         public string? ChutesNoGol { get; private set; }
