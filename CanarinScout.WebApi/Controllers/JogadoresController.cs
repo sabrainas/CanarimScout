@@ -33,11 +33,6 @@ namespace CanarinScout.WebApi.Controllers
         {
             try
             {
-                if (skip < 0 || take <= 0 || take > 100)
-                {
-                    return BadRequest(new { Message = "Parâmetros de paginação inválidos. Skip deve ser >= 0 e Take entre 1 e 100" });
-                }
-
                 var list = await _playerService.SearchPlayersAsync(skip, take);
 
                 if (list.Count == 0)
