@@ -1,8 +1,6 @@
 ﻿using CanarinScout.Application.DTO;
 using CanarinScout.Application.Interfaces;
-using CanarinScout.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CanarinScout.WebApi.Controllers
 {
@@ -11,13 +9,11 @@ namespace CanarinScout.WebApi.Controllers
     public class JogadoresController : ControllerBase
     {
         private readonly IPlayerService _playerService;
-        private readonly AppDbContext _context;
         private readonly ILogger<JogadoresController> _logger;
 
-        public JogadoresController(IPlayerService playerService, AppDbContext context, ILogger<JogadoresController> logger)
+        public JogadoresController(IPlayerService playerService, ILogger<JogadoresController> logger)
         {
             _playerService = playerService;
-            _context = context;
             _logger = logger;
         }
 
@@ -80,26 +76,6 @@ namespace CanarinScout.WebApi.Controllers
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Erro ao buscar jogador por ID: {Id}", id);
-                return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
-            }
-        }
-
-        /// <summary>
-        /// Obtém o total de jogadores cadastrados
-        /// </summary>
-        [HttpGet("total")]
-        [ProducesResponseType(typeof(int), 200)]
-        [ProducesResponseType(500)]
-        public async Task<ActionResult<int>> GetTotalPlayers()
-        {
-            try
-            {
-                var total = await _context.Jogador.CountAsync();
-                return Ok(total);
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError(ex, "Erro ao contar total de jogadores");
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }

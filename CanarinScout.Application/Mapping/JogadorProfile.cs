@@ -14,6 +14,7 @@ namespace CanarinScout.Application.Mapping
             CreateMap<Posses, PossesDto>();
             CreateMap<Defensivas, DefensivasDto>();
             CreateMap<TipoPasses, TipoPassesDto>();
+            CreateMap<Goleiros, GoleiroStatsDto>();
         }
     }
 }

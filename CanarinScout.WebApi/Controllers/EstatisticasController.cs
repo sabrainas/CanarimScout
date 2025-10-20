@@ -52,35 +52,32 @@ namespace CanarinScout.WebApi.Controllers
         }
 
         /// <summary>
-        /// Obtém estatísticas por ID do jogador
+        /// Obtem as estatisticas de goleiros
         /// </summary>
-        [HttpGet("player/{playerId}")]
-        [ProducesResponseType(typeof(EstatisticasDto), 200)]
+        [HttpGet("goleiro/{id}")]
+        [ProducesResponseType(typeof(GoleiroStatsDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<EstatisticasDto>> GetEstatisticasByPlayerId(string playerId)
+        public async Task<ActionResult<GoleiroStatsDto>> GetGoleiroStatsByPlayerId(int id)
         {
             try
             {
-                if (string.IsNullOrWhiteSpace(playerId))
+                if (id <= 0)
                 {
-                    return BadRequest(new { Message = "PlayerId não pode ser vazio" });
+                    return BadRequest(new { Message = "ID deve ser maior que zero" });
                 }
-
-                var estatisticas = await _statsService.GetStatsByPlayerIdAsync(playerId);
-
-                if (estatisticas == null)
+                var stats = await _statsService.GetGoleiroStatsByPlayerIdAsync(id);
+                if (stats == null)
                 {
-                    _logger.LogWarning("Estatísticas não encontradas para PlayerId: {PlayerId}", playerId);
-                    return NotFound(new { Message = $"Estatísticas para o jogador '{playerId}' não encontradas" });
+                    _logger.LogWarning("Estatísticas de goleiro não encontradas para ID: {Id}", id);
+                    return NotFound(new { Message = $"Estatísticas de goleiro para ID {id} não encontradas" });
                 }
-
-                return Ok(estatisticas);
+                return Ok(stats);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar estatísticas por PlayerId: {PlayerId}", playerId);
+                _logger.LogError(ex, "Erro ao buscar estatísticas de goleiro por ID: {Id}", id);
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }
