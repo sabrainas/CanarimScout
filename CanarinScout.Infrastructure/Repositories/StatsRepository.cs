@@ -1,4 +1,5 @@
 ﻿using CanarinScout.Domain.Entities;
+using CanarinScout.Domain.Entities.Sum;
 using CanarinScout.Infrastructure.Interface;
 using Microsoft.EntityFrameworkCore;
 
@@ -30,6 +31,80 @@ namespace CanarinScout.Infrastructure.Repositories
             return await _context.Goleiros
                 .AsNoTracking()
                 .Include(g => g.Jogador)
+                .FirstOrDefaultAsync(g => g.PlayerId == playerId);
+        }
+
+        public async Task<EstatisticasSum?> GetStatsSumByPlayerIdAsync(string playerId)
+        {
+            var estatisticasSum = await _context.EstatisticasSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(e => e.PlayerId == playerId);
+
+            if (estatisticasSum == null)
+                return null;
+
+            // Buscar as entidades relacionadas manualmente já que não há FK real
+            var ofensivas = await _context.OfensivasSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(o => o.PlayerId == playerId);
+
+            var passes = await _context.PassesSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.PlayerId == playerId);
+
+            var tipoPasses = await _context.TipoPassesSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(tp => tp.PlayerId == playerId);
+
+            var posses = await _context.PossesSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.PlayerId == playerId);
+
+            var defensivas = await _context.DefensivasSum
+                .AsNoTracking()
+                .FirstOrDefaultAsync(d => d.PlayerId == playerId);
+
+            // Usar reflexão para setar as propriedades privadas
+            var estatisticasType = typeof(EstatisticasSum);
+            
+            if (ofensivas != null)
+            {
+                var ofensivasProperty = estatisticasType.GetProperty("Ofensivas");
+                ofensivasProperty?.SetValue(estatisticasSum, ofensivas);
+            }
+
+            if (passes != null)
+            {
+                var passesProperty = estatisticasType.GetProperty("Passes");
+                passesProperty?.SetValue(estatisticasSum, passes);
+
+                if (tipoPasses != null)
+                {
+                    var passesType = typeof(PassesSum);
+                    var tipoProperty = passesType.GetProperty("Tipo");
+                    tipoProperty?.SetValue(passes, tipoPasses);
+                }
+            }
+
+            if (posses != null)
+            {
+                var possesProperty = estatisticasType.GetProperty("Posses");
+                possesProperty?.SetValue(estatisticasSum, posses);
+            }
+
+            if (defensivas != null)
+            {
+                var defensivasProperty = estatisticasType.GetProperty("Defensivas");
+                defensivasProperty?.SetValue(estatisticasSum, defensivas);
+            }
+
+            return estatisticasSum;
+        }
+
+        public async Task<GoleirosSum?> GetGoleiroStatsSumByPlayerIdAsync(string playerId)
+        {
+            return await _context.GoleirosSum
+                .AsNoTracking()
                 .FirstOrDefaultAsync(g => g.PlayerId == playerId);
         }
     }

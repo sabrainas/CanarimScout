@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
-using CanarinScout.Application.DTO;
+using CanarinScout.Application.DTO.Sum;
 using CanarinScout.Application.Interfaces;
-using CanarinScout.Domain.Enums;
-using CanarinScout.Domain.Extensions;
 using CanarinScout.Infrastructure.Interface;
-using CanarinScout.Infrastructure.Repositories;
 
 namespace CanarinScout.Application.Services
 {
@@ -21,23 +18,23 @@ namespace CanarinScout.Application.Services
             _playerRepository = playerRepository;
         }
 
-        public async Task<EstatisticasDto> GetStatsByIdAsync(int id)
+        public async Task<EstatisticasSumDto?> GetStatsByIdAsync(string playerId)
         {
-            var estatisticas = await _statsRepository.GetStatsByIdAsync(id);
-            return _mapper.Map<EstatisticasDto>(estatisticas);
+            var estatisticas = await _statsRepository.GetStatsSumByPlayerIdAsync(playerId);
+            return _mapper.Map<EstatisticasSumDto>(estatisticas);
         }
 
-        public async Task<GoleiroStatsDto?> GetGoleiroStatsByPlayerIdAsync(int id)
+        public async Task<GoleirosSumDto?> GetGoleiroStatsByPlayerIdAsync(string playerId)
         {
-            var jogador = await _playerRepository.GetPlayerByIdAsync(id);
+            var jogador = await _playerRepository.GetPlayerByIdAsync(playerId);
             if (jogador == null || string.IsNullOrEmpty(jogador.PlayerId))
                 return null;
 
-            var goleiroStats = await _statsRepository.GetGoleiroStatsByPlayerIdAsync(jogador.PlayerId);
+            var goleiroStats = await _statsRepository.GetGoleiroStatsSumByPlayerIdAsync(jogador.PlayerId);
             if (goleiroStats == null)
                 return null;
 
-            var goleiroDto = _mapper.Map<GoleiroStatsDto>(goleiroStats);
+            var goleiroDto = _mapper.Map<GoleirosSumDto>(goleiroStats);
 
             return goleiroDto;
         }

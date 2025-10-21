@@ -1,4 +1,4 @@
-﻿using CanarinScout.Application.DTO;
+﻿using CanarinScout.Application.DTO.Sum;
 using CanarinScout.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,20 +20,15 @@ namespace CanarinScout.WebApi.Controllers
         /// <summary>
         /// Obtém estatísticas por ID
         /// </summary>
-        [HttpGet("{id:int}")]
-        [ProducesResponseType(typeof(EstatisticasDto), 200)]
+        [HttpGet("{id}")]
+        [ProducesResponseType(typeof(EstatisticasSumDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<EstatisticasDto>> GetEstatisticasById(int id)
+        public async Task<ActionResult<EstatisticasSumDto>> GetEstatisticasById(string id)
         {
             try
             {
-                if (id <= 0)
-                {
-                    return BadRequest(new { Message = "ID deve ser maior que zero" });
-                }
-
                 var estatisticas = await _statsService.GetStatsByIdAsync(id);
 
                 if (estatisticas == null)
@@ -52,21 +47,17 @@ namespace CanarinScout.WebApi.Controllers
         }
 
         /// <summary>
-        /// Obtem as estatisticas de goleiros
+        /// Obtem as estatisticas de goleiros por ID
         /// </summary>
         [HttpGet("goleiro/{id}")]
-        [ProducesResponseType(typeof(GoleiroStatsDto), 200)]
+        [ProducesResponseType(typeof(GoleirosSumDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<GoleiroStatsDto>> GetGoleiroStatsByPlayerId(int id)
+        public async Task<ActionResult<GoleirosSumDto>> GetGoleiroStatsByPlayerId(string id)
         {
             try
             {
-                if (id <= 0)
-                {
-                    return BadRequest(new { Message = "ID deve ser maior que zero" });
-                }
                 var stats = await _statsService.GetGoleiroStatsByPlayerIdAsync(id);
                 if (stats == null)
                 {

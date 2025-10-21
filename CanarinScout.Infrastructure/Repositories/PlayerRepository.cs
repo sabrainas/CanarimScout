@@ -22,11 +22,11 @@ namespace CanarinScout.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        public async Task<Jogador?> GetPlayerByIdAsync(int id)
+        public async Task<Jogador?> GetPlayerByIdAsync(string playerId)
         {
             return await _context.Jogador
                 .AsNoTracking()
-                .FirstOrDefaultAsync(j => j.Id == id);
+                .FirstOrDefaultAsync(j => j.PlayerId.Equals(playerId));
         }
     }
 }
