@@ -2,7 +2,7 @@
 {
     public class JogadorDetailDto
     {
-        public int Id { get; set; }
+        public string PlayerId { get; set; }
         public string? Nome { get; set; }
         public int? Idade { get; set; }
         public int? Altura { get; set; }

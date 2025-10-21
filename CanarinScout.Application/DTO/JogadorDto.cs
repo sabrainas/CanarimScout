@@ -2,7 +2,7 @@
 {
     public class JogadorDto
     {
-        public int Id { get; set; }
+        public string PlayerId { get; set; }
         public string? Nome { get; set; }
         public string? Posicao { get; set; }
         public string? TimeAtual {  get; set; }

@@ -4,6 +4,6 @@ namespace CanarinScout.Infrastructure.Interface
     public interface IPlayerRepository
     {
         Task<List<Jogador>> GetAllPlayersAsync(int skip, int take);
-        Task<Jogador?> GetPlayerByIdAsync(int id);
+        Task<Jogador?> GetPlayerByIdAsync(string playerId);
     }
 }

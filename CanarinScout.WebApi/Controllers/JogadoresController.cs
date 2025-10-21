@@ -49,33 +49,29 @@ namespace CanarinScout.WebApi.Controllers
         /// <summary>
         /// Obtém jogador por ID
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{playerId}")]
         [ProducesResponseType(typeof(JogadorDetailDto), 200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<JogadorDetailDto>> GetPlayerById(int id)
+        public async Task<ActionResult<JogadorDetailDto>> GetPlayerById(string playerId)
         {
             try
             {
-                if (id <= 0)
-                {
-                    return BadRequest(new { Message = "ID deve ser maior que zero" });
-                }
 
-                var player = await _playerService.GetPlayerByIdAsync(id);
+                var player = await _playerService.GetPlayerByIdAsync(playerId);
 
                 if (player == null)
                 {
-                    _logger.LogWarning("Jogador não encontrado para ID: {Id}", id);
-                    return NotFound(new { Message = $"Jogador com ID {id} não encontrado" });
+                    _logger.LogWarning("Jogador não encontrado para ID: {Id}", playerId);
+                    return NotFound(new { Message = $"Jogador com ID {playerId} não encontrado" });
                 }
 
                 return Ok(player);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar jogador por ID: {Id}", id);
+                _logger.LogError(ex, "Erro ao buscar jogador por ID: {Id}", playerId);
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }

@@ -22,7 +22,7 @@ namespace CanarinScout.Application.Services
 
             return players.Select(p => new JogadorDto
             {
-                Id = p.Id,
+                PlayerId = p.PlayerId,
                 Nome = p.Nome,
                 Posicao = PosicaoExtensions.Map(p.Posicao).GetDescription(),
                 TimeAtual = p.TimeAtual,
@@ -31,9 +31,9 @@ namespace CanarinScout.Application.Services
             }).ToList();
         }
 
-        public async Task<JogadorDetailDto> GetPlayerByIdAsync(int id)
+        public async Task<JogadorDetailDto> GetPlayerByIdAsync(string playerId)
         {
-            var player = await _playerRepository.GetPlayerByIdAsync(id);
+            var player = await _playerRepository.GetPlayerByIdAsync(playerId);
             if (player == null) return null;
 
             var posicao = PosicaoExtensions.Map(player.Posicao);
@@ -41,7 +41,7 @@ namespace CanarinScout.Application.Services
 
             return new JogadorDetailDto
             {
-                Id = player.Id,
+                PlayerId = player.PlayerId,
                 Nome = player.Nome,
                 Posicao = posicao.GetDescription(),
                 Idade = GetAge(player.DtNascimento),
