@@ -6,6 +6,14 @@
         public string PlayerId { get; private set; } = null!;
         public Jogador Jogador { get; private set; } = null!;
 
+        public string? DataJogo { get; private set; }
+        public string? DiaJogo { get; private set; }
+        public string? Competicao  { get; private set; }
+        public string? Partida { get; private set; }
+        public string? Local { get; private set; }
+        public string? ResultadoPartida { get; private set; }
+        public string? TimeAtual { get; private set; }
+        public string? Oponente { get; private set; }
         public string? Gols { get; private set; }
         public string? Assistencias { get; private set; }
         public string? MinutosJogados { get; private set; }

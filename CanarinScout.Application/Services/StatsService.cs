@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using CanarinScout.Application.DTO;
 using CanarinScout.Application.DTO.Sum;
 using CanarinScout.Application.Interfaces;
 using CanarinScout.Infrastructure.Interface;
@@ -37,6 +38,14 @@ namespace CanarinScout.Application.Services
             var goleiroDto = _mapper.Map<GoleirosSumDto>(goleiroStats);
 
             return goleiroDto;
+        }
+
+        public async Task<List<EstatisticasDto>> GetStatsRoundByPlayerIdAsync(string playerId)
+        {
+            var estatisticas = await _statsRepository.GetAllStatsAsync(playerId);
+            if (estatisticas == null) return null;
+
+            return _mapper.Map<List<EstatisticasDto>>(estatisticas);
         }
     }
 }

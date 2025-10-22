@@ -43,7 +43,6 @@ namespace CanarinScout.Infrastructure.Repositories
             if (estatisticasSum == null)
                 return null;
 
-            // Buscar as entidades relacionadas manualmente já que não há FK real
             var ofensivas = await _context.OfensivasSum
                 .AsNoTracking()
                 .FirstOrDefaultAsync(o => o.PlayerId == playerId);
@@ -64,7 +63,6 @@ namespace CanarinScout.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(d => d.PlayerId == playerId);
 
-            // Usar reflexão para setar as propriedades privadas
             var estatisticasType = typeof(EstatisticasSum);
             
             if (ofensivas != null)
@@ -106,6 +104,20 @@ namespace CanarinScout.Infrastructure.Repositories
             return await _context.GoleirosSum
                 .AsNoTracking()
                 .FirstOrDefaultAsync(g => g.PlayerId == playerId);
+        }
+
+        public async Task<List<Estatisticas>> GetAllStatsAsync(string playerId)
+        {
+            return await _context.Estatisticas
+                .AsNoTracking()
+                .Where(e => e.PlayerId == playerId)
+                .Include(e => e.Jogador)
+                .Include(e => e.Ofensivas)
+                .Include(e => e.Passes)
+                .Include(e => e.Passes).ThenInclude(p => p.Tipo)
+                .Include(e => e.Posses)
+                .Include(e => e.Defensivas)
+                .ToListAsync();
         }
     }
 }
