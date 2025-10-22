@@ -7,5 +7,6 @@ namespace CanarinScout.Application.Interfaces
     {
         Task<EstatisticasSumDto> GetStatsByIdAsync(string playerId);
         Task<GoleirosSumDto> GetGoleiroStatsByPlayerIdAsync(string playerId);
+        Task<List<EstatisticasDto>> GetStatsRoundByPlayerIdAsync(string playerId);
     }
 }

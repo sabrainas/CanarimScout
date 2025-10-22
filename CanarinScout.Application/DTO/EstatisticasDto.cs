@@ -4,7 +4,14 @@
     {
         public int Id { get; set; }
         public string PlayerId { get; set; }
-        public string? Jogos { get; set; }
+        public string? DataJogo { get; set; }
+        public string? DiaJogo { get; set; }
+        public string? Competicao { get; set; }
+        public string? Partida { get; set; }
+        public string? Local { get; set; }
+        public string? ResultadoPartida { get; set; }
+        public string? TimeAtual { get; set; }
+        public string? Oponente { get; set; }
         public string? Gols { get; set; }
         public string? Assistencias { get; set; }
         public string? CartaoAmarelo { get; set; }

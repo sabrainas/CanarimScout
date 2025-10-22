@@ -18,25 +18,33 @@ namespace CanarinScout.Infrastructure.Mapping
 
             entity.HasOne(e => e.Defensivas)
                   .WithOne()
-                  .HasForeignKey<Defensivas>(d => d.PlayerId)
-                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
+                  .HasForeignKey<Defensivas>(d => d.Id)
+                  .HasPrincipalKey<Estatisticas>(e => e.Id);
 
             entity.HasOne(e => e.Ofensivas)
                   .WithOne()
-                  .HasForeignKey<Ofensivas>(o => o.PlayerId)
-                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
+                  .HasForeignKey<Ofensivas>(o => o.Id)
+                  .HasPrincipalKey<Estatisticas>(e => e.Id);
 
             entity.HasOne(e => e.Passes)
                   .WithOne()
-                  .HasForeignKey<Passes>(p => p.PlayerId)
-                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
+                  .HasForeignKey<Passes>(p => p.Id)
+                  .HasPrincipalKey<Estatisticas>(e => e.Id);
 
             entity.HasOne(e => e.Posses)
                   .WithOne()
-                  .HasForeignKey<Posses>(p => p.PlayerId)
-                  .HasPrincipalKey<Estatisticas>(e => e.PlayerId);
+                  .HasForeignKey<Posses>(p => p.Id)
+                  .HasPrincipalKey<Estatisticas>(e => e.Id);
 
             entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.DataJogo).HasColumnName("date");
+            entity.Property(e => e.DiaJogo).HasColumnName("day");
+            entity.Property(e => e.Competicao).HasColumnName("comp");
+            entity.Property(e => e.Partida).HasColumnName("round");
+            entity.Property(e => e.Local).HasColumnName("venue");
+            entity.Property(e => e.ResultadoPartida).HasColumnName("result");
+            entity.Property(e => e.TimeAtual).HasColumnName("squad");
+            entity.Property(e => e.Oponente).HasColumnName("opponent");
             entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.MinutosJogados).HasColumnName("min");
             entity.Property(e => e.Gols).HasColumnName("gls");
