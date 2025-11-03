@@ -18,7 +18,6 @@ namespace CanarinScout.Application.DTO.Sum
         public decimal? PerPassesConcluidos { get; set; }
         public decimal? QtdTirosDeMeta { get; set; }
         public decimal? LancamentoTotal { get; set; }
-        public decimal? LancamentosCompletos { get; set; }
         public decimal? DistMediaLancamentos { get; set; }
         public decimal? TentativasLancamentos { get; set; }
         public decimal? PerLancamentosCompletos { get; set; }

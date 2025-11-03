@@ -8,9 +8,16 @@ namespace CanarinScout.Infrastructure.Mapping.Sum
     {
         public void Configure(EntityTypeBuilder<GoleirosSum> entity)
         {
-            entity.HasKey(e => e.PlayerId).HasName("goalkeeper_sum_pkey");
-
             entity.ToTable("goalkeeper_sum");
+
+            entity.HasKey(e => e.PlayerId);
+            entity.Property(e => e.PlayerId).HasColumnName("player_id").IsRequired();
+
+            entity.HasOne(e => e.Jogador)
+                .WithMany()
+                .HasForeignKey(e => e.PlayerId)
+                .HasPrincipalKey(j => j.PlayerId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             entity.Property(e => e.PlayerId).HasColumnName("player_id");
             entity.Property(e => e.ChutesNoGol).HasColumnName("total_sota");
@@ -26,18 +33,19 @@ namespace CanarinScout.Infrastructure.Mapping.Sum
             entity.Property(e => e.PassesConcluidos).HasColumnName("total_cmp");
             entity.Property(e => e.TentativasPasses).HasColumnName("total_att");
             entity.Property(e => e.PerPassesConcluidos).HasColumnName("total_cmp_");
-            entity.Property(e => e.QtdTirosDeMeta).HasColumnName("total_attgk");
+            entity.Property(e => e.QtdTirosDeMeta).HasColumnName("total_att_gk_");
             entity.Property(e => e.LancamentoTotal).HasColumnName("total_thr");
-            entity.Property(e => e.LancamentosCompletos).HasColumnName("total_launch");
+            entity.Property(e => e.PerLancamentosCompletos).HasColumnName("total_launch_");
             entity.Property(e => e.DistMediaLancamentos).HasColumnName("total_avglen");
             entity.Property(e => e.TentativasLancamentos).HasColumnName("total_att_1");
-            entity.Property(e => e.PerLancamentosCompletos).HasColumnName("total_launch_");
             entity.Property(e => e.DistMediaTiroDeMeta).HasColumnName("total_avglen_1");
             entity.Property(e => e.CruzamentosEnfrentados).HasColumnName("total_opp");
             entity.Property(e => e.CruzamentoBloqueado).HasColumnName("total_stp");
             entity.Property(e => e.PerCruzamentoBloqueado).HasColumnName("total_stp_");
-            entity.Property(e => e.AcoesForaDaPequenaArea).HasColumnName("total__opa");
+            entity.Property(e => e.AcoesForaDaPequenaArea).HasColumnName("total_opa");
             entity.Property(e => e.DistMedia).HasColumnName("total_avgdist");
+
+            entity.HasIndex(e => e.PlayerId);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CanarinScout.Application.DTO;
 using CanarinScout.Application.DTO.Sum;
 using CanarinScout.Application.Interfaces;
+using CanarinScout.Domain.Common;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CanarinScout.WebApi.Controllers
@@ -19,84 +20,112 @@ namespace CanarinScout.WebApi.Controllers
         }
 
         /// <summary>
-        /// Obtém estatísticas por ID
+        /// Obtém estatísticas agregadas (soma total) de um jogador
         /// </summary>
-        [HttpGet("{id}")]
+        [HttpGet("{playerId}")]
         [ProducesResponseType(typeof(EstatisticasSumDto), 200)]
-        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<EstatisticasSumDto>> GetSumStatsById(string id)
+        public async Task<ActionResult<EstatisticasSumDto>> GetAggregatedStats(string playerId)
         {
             try
             {
-                var estatisticas = await _statsService.GetStatsByIdAsync(id);
+                var estatisticas = await _statsService.GetStatsByIdAsync(playerId);
 
                 if (estatisticas == null)
                 {
-                    _logger.LogWarning("Estatísticas não encontradas para ID: {Id}", id);
-                    return NotFound(new { Message = $"Estatísticas com ID {id} não encontradas" });
+                    _logger.LogWarning("Estatísticas não encontradas para ID: {Id}", playerId);
+                    return NotFound(new { Message = $"Estatísticas para jogador {playerId} não encontradas" });
                 }
 
                 return Ok(estatisticas);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar estatísticas por ID: {Id}", id);
+                _logger.LogError(ex, "Erro ao buscar estatísticas agregadas: {Id}", playerId);
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }
 
         /// <summary>
-        /// Obtem as estatisticas de goleiros por ID
+        /// Obtém estatísticas específicas de goleiro
         /// </summary>
-        [HttpGet("goleiro/{id}")]
+        [HttpGet("goleiro/{playerId}")]
         [ProducesResponseType(typeof(GoleirosSumDto), 200)]
-        [ProducesResponseType(400)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<GoleirosSumDto>> GetGoleiroStatsByPlayerId(string id)
+        public async Task<ActionResult<GoleirosSumDto>> GetGoalkeeperStats(string playerId)
         {
             try
             {
-                var stats = await _statsService.GetGoleiroStatsByPlayerIdAsync(id);
+                var stats = await _statsService.GetGoleiroStatsByPlayerIdAsync(playerId);
+
                 if (stats == null)
                 {
-                    _logger.LogWarning("Estatísticas de goleiro não encontradas para ID: {Id}", id);
-                    return NotFound(new { Message = $"Estatísticas de goleiro para ID {id} não encontradas" });
+                    _logger.LogWarning("Estatísticas de goleiro não encontradas para ID: {Id}", playerId);
+                    return NotFound(new { Message = $"Estatísticas de goleiro para {playerId} não encontradas" });
                 }
+
                 return Ok(stats);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar estatísticas de goleiro por ID: {Id}", id);
+                _logger.LogError(ex, "Erro ao buscar estatísticas de goleiro: {Id}", playerId);
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }
 
         /// <summary>
-        /// Obtém estatísticas por partida por ID do jogador
+        /// Obtém histórico de estatísticas por partida
         /// </summary>
         [HttpGet("partida/{playerId}")]
-        [ProducesResponseType(typeof(List<EstatisticasDto>), 200)]
-        [ProducesResponseType(400)]
+        [ProducesResponseType(typeof(PaginatedResult<EstatisticasDto>), 200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(500)]
-        public async Task<ActionResult<List<EstatisticasDto>>> GetEstatisticasByPlayerId(string playerId)
+        public async Task<ActionResult<PaginatedResult<EstatisticasDto>>> GetMatchStats(
+            string playerId,
+            [FromQuery] int skip = 0,
+            [FromQuery] int take = 10)
         {
             try
             {
-                var estatisticas = await _statsService.GetStatsRoundByPlayerIdAsync(playerId);
-                if (estatisticas == null || estatisticas.Count == 0)
+                var estatisticas = await _statsService.GetStatsRoundByPlayerIdAsync(
+                    playerId, skip, take);
+
+                if (estatisticas == null || estatisticas.Items.Count == 0)
                 {
-                    _logger.LogWarning("Estatísticas não encontradas para Player ID: {PlayerId}", playerId);
-                    return NotFound(new { Message = $"Estatísticas para Player ID {playerId} não encontradas" });
+                    _logger.LogWarning("Estatísticas de partidas não encontradas: {PlayerId}", playerId);
+                    return NotFound(new { Message = $"Nenhuma estatística de partida encontrada para {playerId}" });
                 }
+
                 return Ok(estatisticas);
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, "Erro ao buscar estatísticas por Player ID: {PlayerId}", playerId);
+                _logger.LogError(ex, "Erro ao buscar estatísticas de partidas: {PlayerId}", playerId);
+                return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
+            }
+        }
+
+        /// <summary>
+        /// Obtém comparação de estatísticas entre múltiplos jogadores
+        /// </summary>
+        [HttpPost("comparar")]
+        [ProducesResponseType(typeof(List<EstatisticasSumDto>), 200)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(500)]
+        public async Task<ActionResult<List<EstatisticasSumDto>>> ComparePlayersStats(
+            [FromBody] List<string> playerIds)
+        {
+            try
+            {
+                var comparisons = await _statsService.ComparePlayersStatsAsync(playerIds);
+
+                return Ok(comparisons);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Erro ao comparar estatísticas de jogadores");
                 return StatusCode(500, new { Message = "Erro interno ao processar a solicitação" });
             }
         }

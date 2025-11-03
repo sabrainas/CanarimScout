@@ -1,4 +1,5 @@
 ﻿using CanarinScout.Domain.Entities;
+using CanarinScout.Domain.Entities.Analysis;
 using CanarinScout.Domain.Entities.Sum;
 using Microsoft.EntityFrameworkCore;
 
@@ -41,6 +42,16 @@ namespace CanarinScout.Infrastructure
         public virtual DbSet<EstatisticasSum> EstatisticasSum { get; set; }
 
         public virtual DbSet<GoleirosSum> GoleirosSum { get; set; }
+
+        public virtual DbSet<AttackerAnalysis> AttackerAnalysis { get; set; }
+
+        public virtual DbSet<MidfielderAnalysis> MidfielderAnalysis { get; set; }
+
+        public virtual DbSet<DefenseAnalysis> DefenseAnalysis { get; set; }
+
+        public virtual DbSet<GoalkeeperAnalysis> GoalkeeperAnalysis { get; set; }
+
+        public virtual DbSet<PlayerFeatures> PlayerFeatures { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

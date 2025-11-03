@@ -34,6 +34,7 @@ namespace CanarinScout.Infrastructure
         {
             services.AddScoped<IPlayerService, PlayerService>();
             services.AddScoped<IStatsService, StatsService>();
+            services.AddScoped<IAnalysisService, AnalysisService>();
             return services;
         }
 
@@ -41,6 +42,7 @@ namespace CanarinScout.Infrastructure
         {
             services.AddScoped<IPlayerRepository, PlayerRepository>();
             services.AddScoped<IStatsRepository, StatsRepository>();
+            services.AddScoped<IAnalysisRepository, AnalysisRepository>();
             return services;
         }
     }
