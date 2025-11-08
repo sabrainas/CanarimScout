@@ -1,5 +1,4 @@
-﻿using CanarinScout.Application.DTO.Analysis;
-using CanarinScout.Application.Interfaces;
+﻿using CanarinScout.Application.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace CanarinScout.WebApi.Controllers

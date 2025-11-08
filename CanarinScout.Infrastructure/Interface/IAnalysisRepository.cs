@@ -1,5 +1,6 @@
 ﻿using CanarinScout.Domain.Common;
 using CanarinScout.Domain.Entities.Analysis;
+using CanarinScout.Domain.Entities.Media;
 
 namespace CanarinScout.Infrastructure.Interface
 {
@@ -18,5 +19,6 @@ namespace CanarinScout.Infrastructure.Interface
         Task<MidfielderAnalysis?> GetMidfielderAnalysisAsync(string playerId);
         Task<DefenseAnalysis?> GetDefenseAnalysisAsync(string playerId);
         Task<GoalkeeperAnalysis?> GetGoalkeeperAnalysisAsync(string playerId);
+        Task<GoleiroMedia?> GetGoleiroMediaByPlayerIdAsync(string playerId);
     }
 }

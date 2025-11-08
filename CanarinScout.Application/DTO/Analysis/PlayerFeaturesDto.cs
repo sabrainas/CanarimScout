@@ -1,6 +1,4 @@
-﻿using CanarinScout.Application.DTO.Sum;
-
-namespace CanarinScout.Application.DTO.Analysis
+﻿namespace CanarinScout.Application.DTO.Analysis
 {
     public class PlayerFeaturesDto
     {
@@ -158,11 +156,26 @@ namespace CanarinScout.Application.DTO.Analysis
         // Resumo
         public double? MinutosJogados { get; set; }
 
-        // Dados agregados e análises
-        public EstatisticasSumDto? EstatisticasAgregadas { get; set; }
-        public AttackerAnalysisDto? AnaliseAtacante { get; set; }
-        public MidfielderAnalysisDto? AnaliseMeioCampo { get; set; }
-        public DefenseAnalysisDto? AnaliseDefensor { get; set; }
-        public GoalkeeperAnalysisDto? AnaliseGoleiro { get; set; }
+        // Goleiro Media
+        public double? ChutesNoGol { get; set; }
+        public double? GolSofridos { get; set; }
+        public double? PerDefesas { get; set; }
+        public double? PartidaSemGol { get; set; }
+        public double? PenaltiSofrido { get; set; }
+        public double? PenaltiCausados { get; set; }
+        public double? PenaltiDefendidos { get; set; }
+        public double? PenaltiErrado { get; set; }
+        public double? QtdTirosDeMeta { get; set; }
+        public double? TentativasPasses { get; set; }
+        public double? PerPassesConcluidos { get; set; }
+        public double? PerLancamentosCompletos { get; set; }
+        public double? LancamentoTotal { get; set; }
+        public double? TentativasLancamentos { get; set; }
+        public double? DistMediaLancamentos { get; set; }
+        public double? DistMediaTiroDeMeta { get; set; }
+        public double? CruzamentoBloqueado { get; set; }
+        public double? PerCruzamentoBloqueado { get; set; }
+        public double? AcoesForaDaPequenaArea { get; set; }
+        public double? DistMedia { get; set; }
     }
 }

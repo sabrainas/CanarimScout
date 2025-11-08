@@ -18,12 +18,7 @@ namespace CanarinScout.Application.Mapping
                 .ForMember(dest => dest.Peso, opt => opt.Ignore());
 
             CreateMap<PlayerFeatures, PlayerFeaturesDto>()
-                .ForMember(dest => dest.Jogador, opt => opt.MapFrom(src => src.Jogador))
-                .ForMember(dest => dest.EstatisticasAgregadas, opt => opt.Ignore())
-                .ForMember(dest => dest.AnaliseAtacante, opt => opt.Ignore())
-                .ForMember(dest => dest.AnaliseMeioCampo, opt => opt.Ignore())
-                .ForMember(dest => dest.AnaliseDefensor, opt => opt.Ignore())
-                .ForMember(dest => dest.AnaliseGoleiro, opt => opt.Ignore());
+                .ForMember(dest => dest.Jogador, opt => opt.MapFrom(src => src.Jogador));
 
             CreateMap<AttackerAnalysis, AttackerAnalysisDto>()
                 .ForMember(dest => dest.PeDominante, opt => opt.Ignore())

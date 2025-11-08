@@ -30,7 +30,7 @@ app.UseSwaggerUI();
 app.UseCors("AllowAll");
 
 app.MapControllers();
-app.MapGet("/", () => "🚀 API rodando no Render com Swagger disponível em /swagger");
+app.MapGet("/", () => "API rodando no Render com Swagger disponível em /swagger");
 
 var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
 app.Urls.Add($"http://0.0.0.0:{port}");

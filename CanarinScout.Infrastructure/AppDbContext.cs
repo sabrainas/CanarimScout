@@ -1,5 +1,6 @@
 ﻿using CanarinScout.Domain.Entities;
 using CanarinScout.Domain.Entities.Analysis;
+using CanarinScout.Domain.Entities.Media;
 using CanarinScout.Domain.Entities.Sum;
 using Microsoft.EntityFrameworkCore;
 
@@ -52,6 +53,8 @@ namespace CanarinScout.Infrastructure
         public virtual DbSet<GoalkeeperAnalysis> GoalkeeperAnalysis { get; set; }
 
         public virtual DbSet<PlayerFeatures> PlayerFeatures { get; set; }
+
+        public virtual DbSet<GoleiroMedia> GoleiroMedia { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

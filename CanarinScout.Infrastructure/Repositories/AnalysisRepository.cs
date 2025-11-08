@@ -1,5 +1,6 @@
 ﻿using CanarinScout.Domain.Common;
 using CanarinScout.Domain.Entities.Analysis;
+using CanarinScout.Domain.Entities.Media;
 using CanarinScout.Domain.Extensions;
 using CanarinScout.Infrastructure.Interface;
 using Microsoft.EntityFrameworkCore;
@@ -68,6 +69,14 @@ namespace CanarinScout.Infrastructure.Repositories
                 .OrderBy(p => p.Nome)
                 .Take(limit)
                 .ToListAsync();
+        }
+
+        public async Task<GoleiroMedia?> GetGoleiroMediaByPlayerIdAsync(string playerId)
+        {
+            return await _context.GoleiroMedia
+                .AsNoTracking()
+                .Include(g => g.Jogador)
+                .FirstOrDefaultAsync(g => g.PlayerId == playerId);
         }
 
         public async Task<AttackerAnalysis?> GetAttackerAnalysisAsync(string playerId)

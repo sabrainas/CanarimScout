@@ -4,6 +4,7 @@ using CanarinScout.Application.DTO.Analysis;
 using CanarinScout.Application.Interfaces;
 using CanarinScout.Domain.Common;
 using CanarinScout.Domain.Entities.Analysis;
+using CanarinScout.Domain.Entities.Media;
 using CanarinScout.Domain.Enums;
 using CanarinScout.Domain.Extensions;
 using CanarinScout.Infrastructure.Interface;
@@ -48,7 +49,20 @@ namespace CanarinScout.Application.Services
             if (playerFeatures == null)
                 return null;
 
-            return MapToDto(playerFeatures);
+            var dto = MapToDto(playerFeatures);
+
+            var posicaoEnum = PosicaoExtensions.Map(playerFeatures.Posicao);
+
+            if(posicaoEnum == Posicao.GK)
+            {
+                var goleiroMedia = await _analysisRepository.GetGoleiroMediaByPlayerIdAsync(playerId);
+                if (goleiroMedia != null)
+                {
+                    MapGoleiroMediaToDto(dto, goleiroMedia);
+                }
+            }
+
+            return dto;
         }
 
         public async Task<List<PlayerFeaturesDto>> SearchPlayersByNameAsync(string query, int limit)
@@ -159,6 +173,39 @@ namespace CanarinScout.Application.Services
             dto.Jogador.Foto = playerFeatures.Jogador?.Foto;
 
             return dto;
+        }
+
+        private void MapGoleiroMediaToDto(PlayerFeaturesDto dto, GoleiroMedia goleiroMedia)
+        {
+            dto.MinutosJogados = goleiroMedia.MinutosJogados;
+
+            dto.ChutesNoGol = goleiroMedia.ChutesNoGol;
+            dto.GolSofridos = goleiroMedia.GolSofridos;
+            dto.Defesas = goleiroMedia.Defesas;
+            dto.PerDefesas = goleiroMedia.PerDefesas;
+            dto.PartidaSemGol = goleiroMedia.PartidaSemGol;
+            dto.GolsEsperados = goleiroMedia.GolsEsperados;
+
+            dto.PenaltisCausados = goleiroMedia.PenaltiCausados;
+            dto.PenaltiSofrido = goleiroMedia.PenaltiSofrido;
+            dto.PenaltisDefendidos = goleiroMedia.PenaltiDefendidos;
+            dto.PenaltiErrado = goleiroMedia.PenaltiErrado;
+
+            dto.PassesConcluidos = goleiroMedia.PassesConcluidos;
+            dto.TentativasPasses = goleiroMedia.TentativasPasses;
+            dto.PerPassesConcluidos = goleiroMedia.PerPassesConcluidos;
+            dto.QtdTirosDeMeta = goleiroMedia.QtdTirosDeMeta;
+            dto.LancamentoTotal = goleiroMedia.LancamentoTotal;
+            dto.PerLancamentosCompletos = goleiroMedia.PerLancamentosCompletos;
+            dto.DistMediaLancamentos = goleiroMedia.DistMediaLancamentos;
+            dto.TentativasLancamentos = goleiroMedia.TentativasLancamentos;
+            dto.DistMediaTiroDeMeta = goleiroMedia.DistMediaTiroDeMeta;
+
+            dto.CruzamentosEnfrentados = goleiroMedia.CruzamentosEnfrentados;
+            dto.CruzamentoBloqueado = goleiroMedia.CruzamentoBloqueado;
+            dto.PerCruzamentoBloqueado = goleiroMedia.PerCruzamentoBloqueado;
+            dto.AcoesForaDaPequenaArea = goleiroMedia.AcoesForaDaPequenaArea;
+            dto.DistMedia = goleiroMedia.DistMedia;
         }
 
         private static string? ConvertPosicao(string? posicao)
